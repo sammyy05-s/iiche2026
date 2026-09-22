@@ -2,792 +2,447 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
-<meta name="description" content="Chemathlon 2026 – Annual Sports Extravaganza of IIChE JU Students' Chapter, Jadavpur University. 26th March 2026.">
-<meta name="theme-color" content="#C0162C">
-<title>Chemathlon 2026 – IIChE JU Students' Chapter</title>
+<meta name="description" content="A Century of Chemical Engineers — the history, faculty and alumni of the I.I.Ch.E. Jadavpur University Students' Chapter, Department of Chemical Engineering, est. 1921.">
+<meta name="theme-color" content="#081815">
+<title>Legacy &amp; Alumni — I.I.Ch.E. JU Students&#39; Chapter</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&family=Tiro+Devanagari+Sanskrit&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--gold:#FFB800;--amber:#FF7A00;--crimson:#C0162C;--deep:#0A0A0F;--dark:#10101A;--panel:#14141F;--muted:#2A2A3A;--text:#F0EDE8;--silver:#B8B4C0;}
+:root{
+  --black:#050908;
+  --deep:#081613;
+  --dark:#0B1D19;
+  --panel:#0E2420;
+  --panel2:#122E28;
+  --muted:#1D3E38;
+  --sea:#33E0AE;
+  --sea-soft:#7FE9C6;
+  --teal-deep:#0C6653;
+  --brass:#CBA759;
+  --text:#EAF6F1;
+  --silver:#96B3AA;
+}
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
-body{background:var(--deep);color:var(--text);font-family:'Rajdhani',sans-serif;overflow-x:hidden;cursor:none;}
-
-/* CURSOR */
-.cursor{position:fixed;width:12px;height:12px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference;}
-.cursor-ring{position:fixed;width:36px;height:36px;border:1.5px solid var(--gold);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:transform .18s ease;opacity:.6;}
-
-/* ═══════════════════════════════════════════════════
-   CHEMICAL BG ANIMATIONS
-═══════════════════════════════════════════════════ */
-#chem-bg{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:hidden;}
-
-/* --- element tile --- */
-.el-tile{position:absolute;border:1px solid rgba(255,184,0,0.16);background:rgba(255,184,0,0.025);text-align:center;pointer-events:none;opacity:0;animation:elPulse ease-in-out infinite;}
-@keyframes elPulse{
-  0%,100%{opacity:0;transform:scale(.75) rotate(var(--rot));}
-  18%,82%{opacity:1;transform:scale(1) rotate(var(--rot));}
-  50%{opacity:.7;transform:scale(1.04) rotate(var(--rot));}
+html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px);}
+body{
+  background:var(--black);color:var(--text);
+  font-family:'Manrope',sans-serif;overflow-x:hidden;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
 }
-.el-tile .en{font-size:.5rem;color:rgba(255,184,0,.55);display:block;padding-top:3px;}
-.el-tile .es{font-size:1.35rem;font-weight:700;color:rgba(255,184,0,.8);line-height:1;display:block;}
-.el-tile .ename{font-size:.4rem;color:rgba(255,184,0,.4);letter-spacing:.1em;display:block;}
-.el-tile .em{font-size:.4rem;color:rgba(255,184,0,.35);display:block;padding-bottom:3px;}
+h1,h2,h3,.serif{font-family:'Fraunces',serif;}
+a{color:inherit;}
+::selection{background:var(--sea);color:var(--black);}
 
-/* --- formula drift --- */
-.fdrift{position:absolute;font-family:'Rajdhani',monospace;font-weight:600;letter-spacing:.06em;pointer-events:none;opacity:0;animation:fDriftAnim linear infinite;}
-@keyframes fDriftAnim{
-  0%{opacity:0;transform:translate(0,0) rotate(var(--r0));}
-  8%{opacity:1;}
-  92%{opacity:1;}
-  100%{opacity:0;transform:translate(var(--dx),var(--dy)) rotate(var(--r1));}
-}
-
-/* --- benzene ring --- */
-.benzene{position:absolute;opacity:0;animation:benzAnim linear infinite;}
-@keyframes benzAnim{
-  0%{opacity:0;transform:translateY(0) rotate(0deg) scale(1);}
-  10%{opacity:1;}
-  90%{opacity:1;}
-  100%{opacity:0;transform:translateY(var(--dy)) rotate(360deg) scale(.65);}
-}
-
-/* --- orbital electron --- */
-.orbital-wrap{position:absolute;pointer-events:none;}
-.orbital-ring{position:absolute;border-radius:50%;border:1px solid rgba(255,184,0,0.12);animation:orbSpin linear infinite;}
-.orbital-ring::after{content:'';position:absolute;width:5px;height:5px;background:var(--gold);border-radius:50%;top:-2.5px;left:50%;transform:translateX(-50%);box-shadow:0 0 8px var(--gold);}
-@keyframes orbSpin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
-.orbital-ring.rev{animation-direction:reverse;}
-.orbital-core{position:absolute;border-radius:50%;background:rgba(255,184,0,0.18);border:1px solid rgba(255,184,0,.3);transform:translate(-50%,-50%);}
-
-/* --- flask --- */
-.flask{position:absolute;opacity:0;animation:flaskBob ease-in-out infinite;}
-@keyframes flaskBob{
-  0%,100%{opacity:0;transform:translateY(0) rotate(var(--rot)) scale(.85);}
-  10%,90%{opacity:1;}
-  50%{opacity:.75;transform:translateY(-12px) rotate(var(--rot)) scale(1);}
-}
-
-/* --- test tube --- */
-.ttube{position:absolute;opacity:0;animation:ttAnim ease-in-out infinite;}
-@keyframes ttAnim{
-  0%,100%{opacity:0;transform:translateY(0) rotate(var(--rot));}
-  12%,88%{opacity:1;}
-  50%{opacity:.8;transform:translateY(-10px) rotate(var(--rot));}
-}
-
-/* --- beaker --- */
-.beaker{position:absolute;opacity:0;animation:beakerAnim ease-in-out infinite;}
-@keyframes beakerAnim{
-  0%,100%{opacity:0;transform:scale(.8) rotate(var(--rot));}
-  15%,85%{opacity:1;transform:scale(1) rotate(var(--rot));}
-  50%{opacity:.7;transform:scale(1.03) rotate(var(--rot));}
-}
-
-/* --- atom nucleus + orbits --- */
-.atom-wrap{position:absolute;opacity:0;animation:atomPop ease-in-out infinite;}
-@keyframes atomPop{
-  0%,100%{opacity:0;transform:scale(.6);}
-  15%,85%{opacity:1;transform:scale(1);}
-}
-
-/* --- reaction equation --- */
-.rxn-eq{position:absolute;font-family:'Rajdhani',monospace;font-weight:600;white-space:nowrap;pointer-events:none;opacity:0;animation:rxnFade ease-in-out infinite;}
-@keyframes rxnFade{
-  0%,100%{opacity:0;transform:translateX(-18px) rotate(var(--rot));}
-  18%,82%{opacity:1;transform:translateX(0) rotate(var(--rot));}
-}
-
-/* --- DNA strand --- */
-.dna{position:absolute;opacity:0;animation:dnaRise linear infinite;}
-@keyframes dnaRise{
-  0%{opacity:0;transform:translateY(100vh);}
-  5%{opacity:1;}
-  95%{opacity:1;}
-  100%{opacity:0;transform:translateY(-20vh);}
-}
-
-/* --- bouncing bubble --- */
-.bubble{position:absolute;border-radius:50%;border:1px solid rgba(255,184,0,.15);background:radial-gradient(circle at 30% 30%,rgba(255,184,0,.08),transparent);pointer-events:none;opacity:0;animation:bubbleFloat ease-in-out infinite;}
-@keyframes bubbleFloat{
-  0%,100%{opacity:0;transform:translateY(0) scale(.7);}
-  15%,85%{opacity:1;}
-  50%{opacity:.7;transform:translateY(var(--dy)) scale(1.05);}
-}
-
-/* --- spinning cog (molecule) --- */
-.mol-cog{position:absolute;opacity:0;animation:cogSpin linear infinite,cogFade ease-in-out infinite;}
-@keyframes cogSpin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
-@keyframes cogFade{0%,100%{opacity:0;}15%,85%{opacity:1;}}
-
-/* --- greek/physics symbols --- */
-.greek-sym{position:absolute;font-family:'Rajdhani',monospace;font-weight:700;pointer-events:none;opacity:0;animation:greekDrift ease-in-out infinite;}
-@keyframes greekDrift{
-  0%,100%{opacity:0;transform:translate(0,0) rotate(var(--r0)) scale(.8);}
-  15%,85%{opacity:1;transform:translate(var(--dx),var(--dy)) rotate(var(--r1)) scale(1);}
-  50%{opacity:.6;}
-}
-
-/* --- valence dot --- */
-.vdot{position:absolute;border-radius:50%;pointer-events:none;opacity:0;animation:vdotPulse ease-in-out infinite;}
-@keyframes vdotPulse{0%,100%{opacity:0;transform:scale(.5);}50%{opacity:1;transform:scale(1);}}
-
-/* --- mol network --- */
-.mol-net{position:absolute;opacity:0;animation:netDrift linear infinite;}
-@keyframes netDrift{
-  0%{opacity:0;transform:translate(0,0) rotate(0deg);}
-  8%{opacity:1;}
-  92%{opacity:1;}
-  100%{opacity:0;transform:translate(var(--dx),var(--dy)) rotate(var(--dr));}
-}
-
-/* --- scrolling chem tape (horizontal marquee) --- */
-.chem-tape{position:absolute;white-space:nowrap;font-family:'Rajdhani',monospace;font-weight:600;letter-spacing:.15em;pointer-events:none;animation:tapeMarch linear infinite;}
-@keyframes tapeMarch{from{transform:translateX(0);}to{transform:translateX(-50%);}}
-
-/* --- thermodynamics law banner --- */
-.thermo-banner{position:absolute;font-family:'Rajdhani',monospace;font-weight:700;letter-spacing:.1em;pointer-events:none;opacity:0;animation:thermoBanner ease-in-out infinite;}
-@keyframes thermoBanner{
-  0%,100%{opacity:0;transform:scaleX(.6) rotate(var(--rot));}
-  20%,80%{opacity:1;transform:scaleX(1) rotate(var(--rot));}
-}
-
-/* ═══════════════════════════════════════════════════ */
 #particles{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;}
 
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 5%;display:flex;justify-content:space-between;align-items:center;transition:background .3s,border-bottom .3s;}
-nav.scrolled{background:rgba(10,10,15,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--muted);}
-.nav-logo-text{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.1em;background:linear-gradient(90deg,var(--crimson),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.nav-links{display:flex;gap:32px;list-style:none;}
-.nav-links a{font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;color:var(--silver);text-decoration:none;transition:color .2s;}
-.nav-links a:hover{color:var(--gold);}
-.nav-cta{background:linear-gradient(90deg,var(--crimson),#7A000F);color:#fff!important;padding:8px 20px!important;font-weight:700!important;border:none;transition:opacity .2s!important;}
-.nav-cta:hover{opacity:.85;color:#fff!important;}
-@media(max-width:768px){.nav-links{display:none;}}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:calc(16px + env(safe-area-inset-top,0px)) 5% 16px;display:flex;justify-content:space-between;align-items:center;transition:background .3s,border-bottom .3s;}
+nav.scrolled{background:rgba(5,9,8,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--muted);}
+.nav-logo-text{font-family:'Fraunces',serif;font-weight:500;font-size:1.15rem;letter-spacing:.01em;color:var(--sea-soft);}
+.nav-logo-text small{display:block;font-family:'Manrope',sans-serif;font-size:.55rem;letter-spacing:.2em;color:var(--silver);font-weight:600;margin-top:2px;}
+.nav-links{display:flex;gap:22px;list-style:none;align-items:center;}
+.nav-links a{font-size:.76rem;color:var(--silver);text-decoration:none;transition:color .2s;font-weight:500;}
+.nav-links a:hover{color:var(--sea);}
+@media(max-width:1000px){.nav-links{display:none;}}
 
-/* HERO */
-.hero{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;z-index:1;}
-.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 40%,rgba(192,22,44,.18) 0%,transparent 65%),radial-gradient(ellipse 60% 40% at 20% 80%,rgba(255,122,0,.09) 0%,transparent 55%),radial-gradient(ellipse 50% 50% at 80% 20%,rgba(255,184,0,.08) 0%,transparent 50%),#0A0A0F;}
-.hero-stripes{position:absolute;inset:0;background:repeating-linear-gradient(135deg,transparent,transparent 60px,rgba(255,184,0,.015) 60px,rgba(255,184,0,.015) 61px);animation:stripeScroll 18s linear infinite;}
-@keyframes stripeScroll{0%{background-position:0 0;}100%{background-position:200px 200px;}}
-.gear{position:absolute;border-radius:50%;border:2px solid rgba(255,184,0,.08);animation:gearSpin linear infinite;}
-.gear::before{content:'';position:absolute;inset:-8px;border-radius:50%;border:1px dashed rgba(255,184,0,.05);}
-.gear-1{width:260px;height:260px;top:-60px;right:-60px;animation-duration:35s;}
-.gear-2{width:160px;height:160px;bottom:120px;left:-40px;animation-duration:25s;animation-direction:reverse;}
-.gear-3{width:100px;height:100px;top:40%;right:8%;animation-duration:20s;}
-@keyframes gearSpin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
-.molecule-wrap{position:absolute;bottom:10%;right:5%;opacity:.18;animation:molFloat 6s ease-in-out infinite;}
-.mol-svg{width:100px;height:100px;}
-@keyframes molFloat{0%,100%{transform:translateY(0) rotate(0deg);}50%{transform:translateY(-14px) rotate(8deg);}}
-.hero-badge{position:relative;z-index:2;font-size:.65rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(255,184,0,.3);padding:6px 20px;margin-bottom:28px;background:rgba(255,184,0,.05);animation:fadeUp .8s .2s both;}
-.hero-org{position:relative;z-index:2;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--silver);opacity:.7;margin-bottom:32px;animation:fadeUp .8s .35s both;}
-.logo-stage{position:relative;z-index:2;width:clamp(320px,72vw,960px);max-width:94vw;margin-bottom:4px;}
-.logo-ring{position:absolute;inset:-24px;border-radius:12px;border:1px solid rgba(192,22,44,0);animation:ringPulse 3s ease-in-out 2s infinite;pointer-events:none;}
-@keyframes ringPulse{0%,100%{border-color:rgba(192,22,44,0);box-shadow:0 0 0 rgba(192,22,44,0);}50%{border-color:rgba(192,22,44,.25);box-shadow:0 0 40px rgba(192,22,44,.15),inset 0 0 30px rgba(255,184,0,.05);}}
-.hero-logo-img{display:block;width:100%;opacity:0;transform-origin:center center;animation:logoP1 .6s .6s cubic-bezier(.16,1,.3,1) forwards,logoP2 .5s 1.2s cubic-bezier(.34,1.56,.64,1) forwards,logoP3 .4s 1.7s ease-out forwards,logoFloat 4s 2.5s ease-in-out infinite;filter:drop-shadow(0 0 0 rgba(192,22,44,0));}
-@keyframes logoP1{0%{opacity:0;transform:scale(1.15) translateY(20px);filter:drop-shadow(0 0 0 rgba(192,22,44,0));}100%{opacity:1;transform:scale(.97) translateY(-4px);filter:drop-shadow(0 0 40px rgba(192,22,44,.8)) drop-shadow(0 0 80px rgba(255,184,0,.4));}}
-@keyframes logoP2{0%{opacity:1;transform:scale(.97) translateY(-4px);filter:drop-shadow(0 0 40px rgba(192,22,44,.8)) drop-shadow(0 0 80px rgba(255,184,0,.4));}40%{transform:scale(1.04) translateY(3px);filter:drop-shadow(0 0 60px rgba(255,122,0,.6)) drop-shadow(0 0 100px rgba(255,184,0,.3));}100%{transform:scale(1.01) translateY(1px);filter:drop-shadow(0 0 30px rgba(192,22,44,.5)) drop-shadow(0 0 60px rgba(255,184,0,.2));}}
-@keyframes logoP3{0%{transform:scale(1.01) translateY(1px);}100%{transform:scale(1) translateY(0);filter:drop-shadow(0 0 25px rgba(192,22,44,.4)) drop-shadow(0 0 70px rgba(255,184,0,.15));}}
-@keyframes logoFloat{0%,100%{transform:scale(1) translateY(0);}50%{transform:scale(1) translateY(-7px);}}
-.logo-shimmer{position:absolute;inset:0;pointer-events:none;border-radius:8px;overflow:hidden;opacity:0;animation:shimApp .1s 1.9s forwards;}
-.logo-shimmer::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(105deg,transparent 30%,rgba(255,255,255,.18) 50%,transparent 70%);animation:shimSweep .7s 1.95s ease-out forwards,shimRep 5s 4s ease-in-out infinite;}
-@keyframes shimApp{to{opacity:1;}}
-@keyframes shimSweep{0%{left:-100%;}100%{left:160%;}}
-@keyframes shimRep{0%,85%,100%{left:-100%;opacity:0;}86%{opacity:1;}99%{left:160%;opacity:1;}}
-.logo-scanlines{position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,.08) 3px,rgba(0,0,0,.08) 4px);opacity:0;animation:scanF .15s .65s steps(1,end) 4 alternate;}
-@keyframes scanF{from{opacity:1;}to{opacity:0;}}
-.logo-blast{position:absolute;inset:-20px;border-radius:16px;pointer-events:none;border:2px solid rgba(192,22,44,.8);opacity:0;animation:blastOut .6s 1.15s cubic-bezier(.2,1,.4,1) forwards;}
-@keyframes blastOut{0%{opacity:.9;transform:scale(.95);}100%{opacity:0;transform:scale(1.18);border-color:rgba(255,184,0,0);}}
-.ember{position:absolute;width:4px;height:4px;border-radius:50%;pointer-events:none;opacity:0;}
-.ember:nth-child(1){background:var(--gold);top:50%;left:50%;animation:em1 .8s 1.2s ease-out forwards;}
-.ember:nth-child(2){background:var(--crimson);top:50%;left:50%;animation:em2 .9s 1.22s ease-out forwards;}
-.ember:nth-child(3){background:var(--amber);top:50%;left:50%;animation:em3 .75s 1.25s ease-out forwards;}
-.ember:nth-child(4){background:var(--gold);top:50%;left:50%;animation:em4 1s 1.21s ease-out forwards;}
-.ember:nth-child(5){background:#fff;top:50%;left:50%;animation:em5 .7s 1.23s ease-out forwards;}
-.ember:nth-child(6){background:var(--crimson);top:50%;left:50%;animation:em6 .85s 1.24s ease-out forwards;}
-@keyframes em1{0%{opacity:1;transform:translate(0,0) scale(1);}100%{opacity:0;transform:translate(-180px,-120px) scale(.2);}}
-@keyframes em2{0%{opacity:1;transform:translate(0,0) scale(1.2);}100%{opacity:0;transform:translate(200px,-90px) scale(.1);}}
-@keyframes em3{0%{opacity:1;transform:translate(0,0) scale(.8);}100%{opacity:0;transform:translate(140px,100px) scale(.15);}}
-@keyframes em4{0%{opacity:1;transform:translate(0,0) scale(1.3);}100%{opacity:0;transform:translate(-220px,80px) scale(.1);}}
-@keyframes em5{0%{opacity:1;transform:translate(0,0) scale(1);}100%{opacity:0;transform:translate(60px,-160px) scale(.2);}}
-@keyframes em6{0%{opacity:1;transform:translate(0,0) scale(1.1);}100%{opacity:0;transform:translate(-80px,140px) scale(.1);}}
-.hero-divider{position:relative;z-index:2;width:80px;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:28px auto 18px;animation:fadeUp .8s 2.3s both;}
-.hero-sub{position:relative;z-index:2;font-family:'Bebas Neue',sans-serif;font-size:clamp(1.1rem,2.5vw,1.6rem);letter-spacing:.3em;color:var(--silver);animation:fadeUp .8s 2.45s both;}
-.hero-tagline{position:relative;z-index:2;font-size:.78rem;letter-spacing:.1em;color:rgba(184,180,192,.55);margin-top:10px;max-width:560px;text-align:center;padding:0 20px;line-height:1.7;animation:fadeUp .8s 2.6s both;}
-.hero-scroll{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;animation:fadeUp 1s 3s both;z-index:2;}
-.hero-scroll span{font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:var(--silver);opacity:.5;}
-.scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,var(--gold),transparent);animation:scrollP 2s ease-in-out infinite;}
+.hero{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;z-index:1;padding:120px 5% 60px;}
+.hero-bg{position:absolute;inset:0;background:
+  radial-gradient(ellipse 70% 55% at 50% 35%,rgba(51,224,174,.10) 0%,transparent 62%),
+  radial-gradient(ellipse 55% 40% at 15% 85%,rgba(12,102,83,.20) 0%,transparent 55%),
+  radial-gradient(ellipse 45% 45% at 88% 15%,rgba(203,167,89,.06) 0%,transparent 50%),
+  var(--black);}
+.emblem{position:relative;z-index:2;width:118px;height:118px;margin-bottom:26px;animation:emblemIn 1s cubic-bezier(.16,1,.3,1) both;}
+@keyframes emblemIn{from{opacity:0;transform:scale(.8) translateY(-10px);}to{opacity:1;transform:scale(1) translateY(0);}}
+.hero-badge{position:relative;z-index:2;font-size:.68rem;letter-spacing:.12em;color:var(--sea);border:1px solid rgba(51,224,174,.3);padding:6px 18px;margin-bottom:22px;background:rgba(51,224,174,.05);border-radius:2px;animation:fadeUp .8s .2s both;}
+.hero-org{position:relative;z-index:2;font-size:.78rem;color:var(--silver);margin-bottom:34px;animation:fadeUp .8s .35s both;text-align:center;}
+h1.hero-title{position:relative;z-index:2;text-align:center;font-weight:500;font-size:clamp(2.4rem,6.4vw,4.6rem);line-height:1.05;letter-spacing:-.01em;max-width:920px;animation:fadeUp .9s .5s both;}
+h1.hero-title em{font-style:italic;color:var(--sea);}
+.hero-tagline{position:relative;z-index:2;font-size:1rem;color:var(--silver);margin-top:26px;max-width:600px;text-align:center;line-height:1.75;animation:fadeUp .8s .7s both;}
+.hero-stats{position:relative;z-index:2;display:flex;gap:0;margin-top:52px;border:1px solid var(--muted);animation:fadeUp .8s .9s both;flex-wrap:wrap;justify-content:center;}
+.hero-stat{padding:20px 34px;text-align:center;border-right:1px solid var(--muted);}
+.hero-stat:last-child{border-right:none;}
+.hero-stat-num{display:block;font-family:'Fraunces',serif;font-weight:500;font-size:1.9rem;color:var(--sea-soft);}
+.hero-stat-label{display:block;font-size:.6rem;letter-spacing:.1em;color:var(--silver);margin-top:4px;}
+.hero-scroll{position:absolute;bottom:calc(28px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;animation:fadeUp 1s 1.2s both;z-index:2;}
+.hero-scroll span{font-size:.58rem;letter-spacing:.22em;color:var(--silver);opacity:.6;}
+.scroll-line{width:1px;height:36px;background:linear-gradient(to bottom,var(--sea),transparent);animation:scrollP 2s ease-in-out infinite;}
 @keyframes scrollP{0%,100%{opacity:.3;transform:scaleY(1);}50%{opacity:1;transform:scaleY(1.2);}}
-@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
 
-/* COUNTDOWN */
-.countdown-section{position:relative;z-index:1;background:linear-gradient(135deg,var(--crimson) 0%,#7A000F 50%,#3A0008 100%);padding:80px 5%;text-align:center;overflow:hidden;}
-.countdown-section::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 30px,rgba(255,255,255,.02) 30px,rgba(255,255,255,.02) 31px);}
-.section-label{position:relative;font-size:.65rem;letter-spacing:.35em;text-transform:uppercase;margin-bottom:10px;}
-.section-title{position:relative;font-family:'Bebas Neue',sans-serif;font-size:clamp(2.2rem,6vw,4rem);line-height:1;letter-spacing:.05em;margin-bottom:48px;}
-.accent{color:var(--gold);}
-.countdown-grid{position:relative;display:flex;align-items:center;justify-content:center;gap:0;flex-wrap:wrap;}
-.count-unit{background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.15);padding:28px 36px;min-width:110px;text-align:center;backdrop-filter:blur(6px);}
-.count-num{display:block;font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,7vw,5rem);line-height:1;color:#fff;}
-.count-label{display:block;font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-top:4px;}
-.count-sep{font-family:'Bebas Neue',sans-serif;font-size:3rem;color:rgba(255,255,255,.4);padding:0 4px;}
-@media(max-width:600px){.count-unit{min-width:80px;padding:20px;}.count-sep{display:none;}}
-section{padding:100px 5%;position:relative;z-index:1;}
+section{padding:110px 5%;position:relative;z-index:1;}
+.eyebrow{font-size:.7rem;letter-spacing:.12em;color:var(--sea);margin-bottom:14px;font-weight:600;}
+.sec-title{font-weight:500;font-size:clamp(2rem,4.6vw,3.2rem);line-height:1.08;margin-bottom:8px;}
+.sec-title em{font-style:italic;color:var(--sea-soft);}
+.sec-lead{color:var(--silver);font-size:.98rem;line-height:1.8;max-width:640px;}
 
-/* LEGACY */
-.legacy{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1.4fr 1fr;gap:80px;align-items:center;}
-@media(max-width:900px){.legacy{grid-template-columns:1fr;gap:50px;}}
-.legacy-text .section-label{color:var(--gold);font-size:.65rem;letter-spacing:.35em;text-transform:uppercase;margin-bottom:12px;}
-.legacy-text .section-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,6vw,4.5rem);line-height:.95;color:var(--text);margin-bottom:28px;}
-.legacy-text p{color:var(--silver);line-height:1.8;font-size:.95rem;margin-bottom:18px;}
-.legacy-quote{font-family:'Tiro Devanagari Sanskrit',serif;font-size:1.1rem;color:var(--gold);border-left:3px solid var(--crimson);padding-left:20px;margin:28px 0;line-height:1.7;font-style:italic;}
-.legacy-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--muted);border:1px solid var(--muted);}
-.stat-box{background:var(--panel);padding:28px 20px;text-align:center;}
-.stat-num{font-family:'Bebas Neue',sans-serif;font-size:2.4rem;color:var(--gold);display:block;}
-.stat-label{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--silver);margin-top:4px;display:block;}
+/* FOUNDING */
+#founding{border-top:1px solid var(--muted);}
+.founding-wrap{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:.95fr 1.3fr;gap:70px;align-items:start;}
+@media(max-width:900px){.founding-wrap{grid-template-columns:1fr;gap:44px;}}
+.founding-figure{border:1px solid var(--muted);background:var(--panel);padding:36px;}
+.founding-figure .fig-name{font-family:'Fraunces',serif;font-size:1.55rem;font-weight:500;color:var(--sea-soft);margin-bottom:4px;}
+.founding-figure .fig-role{font-size:.72rem;letter-spacing:.07em;color:var(--brass);margin-bottom:18px;}
+.founding-figure p{color:var(--silver);font-size:.88rem;line-height:1.75;margin-bottom:14px;}
+.founding-figure p:last-child{margin-bottom:0;}
+.founding-quote{margin-top:22px;padding-top:22px;border-top:1px solid var(--muted);font-style:italic;color:var(--sea-soft);font-size:.9rem;line-height:1.7;}
+.founding-quote cite{display:block;margin-top:10px;font-style:normal;font-size:.65rem;letter-spacing:.08em;color:var(--silver);}
+.founding-body p{color:var(--silver);line-height:1.85;font-size:.98rem;margin-bottom:20px;}
+.founding-body strong{color:var(--text);font-weight:700;}
 
-/* EVENTS */
-#events{background:var(--dark);border-top:1px solid var(--muted);}
-.events-header{text-align:center;margin-bottom:60px;}
-.events-header .section-label{color:var(--gold);font-size:.65rem;letter-spacing:.35em;text-transform:uppercase;margin-bottom:12px;}
-.events-header .section-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,6vw,4rem);}
-.sports-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1px;background:var(--muted);border:1px solid var(--muted);}
-.sport-card{background:var(--panel);padding:36px 28px;position:relative;overflow:hidden;transition:background .3s,transform .3s;cursor:pointer;user-select:none;}
-.sport-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--crimson);transform:scaleY(0);transform-origin:bottom;transition:transform .35s cubic-bezier(.16,1,.3,1);}
-.sport-card:hover{background:var(--muted);transform:translateY(-3px);}
-.sport-card:hover::before{transform:scaleY(1);}
-.sport-card:hover .sport-name{color:var(--gold);}
-.sport-card-hint{position:absolute;bottom:12px;right:16px;font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,184,0,.3);transition:color .3s;}
-.sport-card:hover .sport-card-hint{color:rgba(255,184,0,.65);}
-.sport-icon{font-size:2.4rem;display:block;margin-bottom:14px;}
-.sport-name{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.06em;color:var(--text);margin-bottom:8px;transition:color .3s;}
-.sport-format{font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
-.sport-detail{font-size:.82rem;color:var(--silver);line-height:1.6;}
-.sport-num{position:absolute;top:16px;right:20px;font-family:'Bebas Neue',sans-serif;font-size:2.8rem;color:rgba(255,255,255,.04);line-height:1;}
+/* TIMELINE */
+#history{background:var(--dark);border-top:1px solid var(--muted);}
+.history-head{max-width:640px;margin:0 auto 64px;}
+.timeline{max-width:880px;margin:0 auto;position:relative;}
+.timeline::before{content:'';position:absolute;left:118px;top:6px;bottom:6px;width:1px;background:linear-gradient(to bottom,transparent,var(--muted) 6%,var(--muted) 94%,transparent);}
+.t-item{display:grid;grid-template-columns:118px 26px 1fr;gap:0 22px;margin-bottom:2px;align-items:start;}
+.t-year{text-align:right;padding-top:22px;padding-right:18px;}
+.t-year span{font-family:'Fraunces',serif;font-weight:500;font-size:1.3rem;color:var(--sea-soft);}
+.t-dot-col{display:flex;flex-direction:column;align-items:center;padding-top:26px;flex-shrink:0;position:relative;z-index:2;}
+.t-dot{width:9px;height:9px;border-radius:50%;background:var(--sea);box-shadow:0 0 0 4px rgba(51,224,174,.15);flex-shrink:0;}
+.t-item.milestone .t-dot{background:var(--brass);box-shadow:0 0 0 4px rgba(203,167,89,.18);}
+.t-content{background:var(--panel);border:1px solid var(--muted);padding:20px 26px;margin-bottom:2px;transition:border-color .3s,background .3s;}
+.t-content:hover{background:var(--panel2);border-color:rgba(51,224,174,.3);}
+.t-name{font-family:'Fraunces',serif;font-weight:500;font-size:1.2rem;margin-bottom:5px;}
+.t-detail{font-size:.85rem;color:var(--silver);line-height:1.65;}
+.t-detail cite{display:block;margin-top:6px;font-style:italic;color:var(--sea-soft);font-size:.65rem;}
+@media(max-width:680px){.timeline::before{left:0;}.t-year{display:none;}.t-item{grid-template-columns:20px 1fr;}}
 
-/* MODAL */
-.modal-overlay{position:fixed;inset:0;z-index:9000;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0);backdrop-filter:blur(0px);pointer-events:none;transition:background .35s ease,backdrop-filter .35s ease;}
-.modal-overlay.open{background:rgba(0,0,0,.78);backdrop-filter:blur(10px);pointer-events:all;}
-.modal-box{position:relative;background:var(--panel);border:1px solid var(--muted);width:clamp(300px,90vw,500px);transform:translateY(50px) scale(.93);opacity:0;transition:transform .4s cubic-bezier(.16,1,.3,1),opacity .35s ease;overflow:hidden;}
-.modal-overlay.open .modal-box{transform:translateY(0) scale(1);opacity:1;}
-.modal-top{background:linear-gradient(135deg,var(--crimson) 0%,#7A000F 60%,#3A0008 100%);padding:36px 32px 28px;position:relative;overflow:hidden;}
-.modal-top::after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(135deg,transparent,transparent 20px,rgba(255,255,255,.025) 20px,rgba(255,255,255,.025) 21px);}
-.modal-icon{font-size:3rem;display:block;margin-bottom:10px;position:relative;z-index:1;}
-.modal-title{font-family:'Bebas Neue',sans-serif;font-size:2.4rem;letter-spacing:.06em;color:#fff;position:relative;z-index:1;line-height:1;}
-.modal-format{font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-top:8px;position:relative;z-index:1;}
-.modal-body{padding:30px 32px 34px;}
-.modal-desc{font-size:.92rem;color:var(--silver);line-height:1.8;margin-bottom:28px;}
-.modal-close{position:absolute;top:14px;right:14px;background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.7);font-size:1rem;width:32px;height:32px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:10;transition:background .2s,color .2s;}
-.modal-close:hover{background:rgba(0,0,0,.6);color:#fff;}
-.modal-register-btn{display:block;width:100%;padding:18px 24px;background:linear-gradient(90deg,var(--crimson),#7A000F);color:#fff;font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.18em;text-align:center;text-decoration:none;border:none;cursor:pointer;position:relative;overflow:hidden;transition:opacity .2s,transform .15s;}
-.modal-register-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.1),transparent);transform:translateX(-100%);transition:transform .5s ease;}
-.modal-register-btn:hover{opacity:.9;transform:translateY(-1px);}
-.modal-register-btn:hover::before{transform:translateX(100%);}
-.modal-no-form{font-size:.78rem;color:var(--silver);opacity:.45;text-align:center;padding:14px 0;letter-spacing:.15em;text-transform:uppercase;border:1px dashed var(--muted);}
+/* TEACHERS / FACULTY (shared row styling) */
+#teachers{border-top:1px solid var(--muted);}
+#faculty{background:var(--dark);border-top:1px solid var(--muted);}
+.teachers-head{max-width:680px;margin:0 auto 50px;}
+.teachers-list{max-width:920px;margin:0 auto;border-top:1px solid var(--muted);}
+.teacher-row{display:grid;grid-template-columns:1.3fr 2fr;gap:36px;padding:28px 4px;border-bottom:1px solid var(--muted);align-items:start;}
+@media(max-width:700px){.teacher-row{grid-template-columns:1fr;gap:8px;}}
+.teacher-name{font-family:'Fraunces',serif;font-size:1.22rem;font-weight:500;color:var(--sea-soft);}
+.teacher-era{font-size:.68rem;letter-spacing:.07em;color:var(--brass);margin-top:6px;}
+.teacher-note{font-size:.9rem;color:var(--silver);line-height:1.7;}
+.teachers-note{max-width:920px;margin:30px auto 0;color:var(--silver);font-size:.9rem;line-height:1.8;}
 
-/* SCHEDULE */
-#schedule{border-top:1px solid var(--muted);background:var(--deep);}
-.schedule-header{text-align:center;margin-bottom:60px;}
-.schedule-header .section-label{color:var(--gold);font-size:.65rem;letter-spacing:.35em;text-transform:uppercase;margin-bottom:12px;}
-.schedule-header .section-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,6vw,4rem);}
-.timeline{max-width:900px;margin:0 auto;position:relative;}
-.timeline::before{content:'';position:absolute;left:140px;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,transparent,var(--muted) 10%,var(--muted) 90%,transparent);}
-.timeline-item{display:grid;grid-template-columns:140px 28px 1fr;gap:0 20px;margin-bottom:2px;align-items:start;}
-.timeline-time{text-align:right;padding-top:24px;padding-right:20px;}
-.timeline-time span{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:var(--gold);letter-spacing:.08em;}
-.timeline-time small{display:block;font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(184,180,192,.5);}
-.timeline-dot{display:flex;flex-direction:column;align-items:center;padding-top:28px;flex-shrink:0;position:relative;z-index:2;}
-.timeline-dot .dot{width:10px;height:10px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 3px rgba(255,184,0,.2);flex-shrink:0;}
-.timeline-content{background:var(--panel);border:1px solid var(--muted);padding:20px 26px;margin-bottom:2px;transition:border-color .3s,background .3s;}
-.timeline-content:hover{background:var(--muted);border-color:rgba(255,184,0,.3);}
-.timeline-event-name{font-family:'Bebas Neue',sans-serif;font-size:1.35rem;letter-spacing:.04em;margin-bottom:4px;display:flex;align-items:center;gap:10px;}
-.timeline-event-name .tag{font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;background:rgba(255,184,0,.1);color:var(--gold);padding:3px 10px;border:1px solid rgba(255,184,0,.25);}
-.timeline-detail{font-size:.82rem;color:var(--silver);}
-@media(max-width:700px){.timeline::before{left:0;}.timeline-time{display:none;}.timeline-item{grid-template-columns:24px 1fr;}}
+/* FACULTY GRID */
+.faculty-head{max-width:680px;margin:0 auto 50px;}
+.faculty-grid{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--muted);border:1px solid var(--muted);}
+@media(max-width:900px){.faculty-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:600px){.faculty-grid{grid-template-columns:1fr;}}
+.faculty-card{background:var(--panel);padding:24px 22px;transition:background .3s;}
+.faculty-card:hover{background:var(--panel2);}
+.faculty-card .f-name{font-family:'Fraunces',serif;font-size:1.02rem;font-weight:500;color:var(--sea-soft);line-height:1.3;}
+.faculty-card .f-title{font-size:.66rem;letter-spacing:.06em;color:var(--brass);margin-top:6px;text-transform:uppercase;}
+.faculty-card .f-area{font-size:.78rem;color:var(--silver);line-height:1.6;margin-top:10px;}
+.faculty-note{max-width:1080px;margin:26px auto 0;font-size:.72rem;color:var(--silver);opacity:.65;line-height:1.6;}
+.hod-banner{max-width:1080px;margin:0 auto 40px;border:1px solid rgba(203,167,89,.35);background:rgba(203,167,89,.05);padding:22px 26px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+.hod-banner .hb-name{font-family:'Fraunces',serif;font-size:1.1rem;color:var(--sea-soft);}
+.hod-banner .hb-role{font-size:.68rem;letter-spacing:.08em;color:var(--brass);margin-top:4px;}
 
-/* ABOUT */
-.about-section{border-top:1px solid var(--muted);background:var(--deep);}
-.about-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1.5fr;gap:80px;align-items:start;}
-@media(max-width:768px){.about-inner{grid-template-columns:1fr;gap:40px;}}
-.about-emblem{position:sticky;top:100px;display:flex;flex-direction:column;gap:24px;}
-.emblem-box{background:var(--panel);border:1px solid var(--muted);padding:44px;text-align:center;position:relative;}
-.emblem-icon{font-size:60px;display:block;margin-bottom:12px;}
-.emblem-name{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:var(--gold);letter-spacing:.08em;line-height:1.2;}
-.emblem-sub{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--silver);margin-top:6px;}
-.stat-mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--muted);}
-.stat-mini{background:var(--panel);padding:18px;text-align:center;}
-.stat-mini-num{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:var(--crimson);display:block;}
-.stat-mini-label{font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--silver);}
-.about-text .section-label{color:var(--gold);font-size:.65rem;letter-spacing:.35em;text-transform:uppercase;margin-bottom:12px;}
-.about-text .section-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,5vw,3.2rem);margin-bottom:28px;line-height:1.0;}
-.about-text p{color:var(--silver);line-height:1.8;font-size:.93rem;margin-bottom:18px;}
-.about-text strong{color:var(--text);}
+/* ALUMNI */
+#alumni{border-top:1px solid var(--muted);}
+.alumni-head{max-width:680px;margin:0 auto 60px;}
+.alumni-list{max-width:920px;margin:0 auto;border-top:1px solid var(--muted);}
+.alumni-row{display:grid;grid-template-columns:1.3fr 2fr;gap:36px;padding:28px 4px;border-bottom:1px solid var(--muted);align-items:start;}
+@media(max-width:700px){.alumni-row{grid-template-columns:1fr;gap:8px;}}
+.alumni-name{font-family:'Fraunces',serif;font-size:1.28rem;font-weight:500;color:var(--sea-soft);}
+.alumni-batch{font-size:.66rem;letter-spacing:.06em;color:var(--brass);margin-top:6px;}
+.alumni-role{font-size:.88rem;color:var(--text);line-height:1.6;margin-bottom:7px;}
+.alumni-note{font-size:.85rem;color:var(--silver);line-height:1.65;}
+.alumni-source{max-width:920px;margin:26px auto 0;font-size:.72rem;color:var(--silver);opacity:.6;line-height:1.6;}
 
-/* FOOTER */
-footer{background:var(--dark);border-top:1px solid var(--muted);padding:48px 5% 32px;text-align:center;position:relative;z-index:1;}
-.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:.1em;background:linear-gradient(90deg,var(--gold),var(--amber));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:8px;}
-.footer-sub{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--silver);opacity:.6;margin-bottom:28px;}
-.footer-divider{width:60px;height:1px;background:var(--muted);margin:0 auto 28px;}
-.footer-info{font-size:.78rem;color:var(--silver);opacity:.5;line-height:1.9;}
-.footer-copy{margin-top:28px;font-size:.68rem;letter-spacing:.12em;color:rgba(184,180,192,.3);}
-.fire-emoji{display:inline-block;animation:fireW .8s ease-in-out infinite;}
-@keyframes fireW{0%,100%{transform:rotate(-5deg) scale(1);}50%{transform:rotate(5deg) scale(1.1);}}
-.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s cubic-bezier(.16,1,.3,1);}
+/* ABOUT / DEPARTMENT */
+#department{background:var(--dark);border-top:1px solid var(--muted);}
+.dept-wrap{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1fr 1.5fr;gap:70px;align-items:start;}
+@media(max-width:900px){.dept-wrap{grid-template-columns:1fr;gap:44px;}}
+.dept-stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--muted);border:1px solid var(--muted);position:sticky;top:110px;}
+.dstat{background:var(--panel);padding:26px 20px;text-align:center;}
+.dstat-num{font-family:'Fraunces',serif;font-weight:500;font-size:1.6rem;color:var(--sea-soft);display:block;}
+.dstat-label{font-size:.58rem;letter-spacing:.09em;color:var(--silver);margin-top:5px;display:block;}
+.dept-text p{color:var(--silver);line-height:1.85;font-size:.98rem;margin-bottom:20px;}
+.dept-text strong{color:var(--text);}
+
+/* CHAPTER / JOIN */
+#chapter{border-top:1px solid var(--muted);}
+.chapter-wrap{max-width:760px;margin:0 auto;text-align:center;}
+.chapter-wrap p{color:var(--silver);line-height:1.85;font-size:1rem;margin:20px auto 0;max-width:600px;}
+.chapter-tags{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:32px;}
+.chapter-tag{border:1px solid var(--muted);padding:8px 18px;font-size:.78rem;color:var(--sea-soft);border-radius:2px;}
+.chapter-coord{margin-top:36px;border-top:1px solid var(--muted);padding-top:28px;}
+.chapter-coord .cc-label{font-size:.66rem;letter-spacing:.1em;color:var(--brass);margin-bottom:8px;}
+.chapter-coord .cc-name{font-family:'Fraunces',serif;font-size:1.35rem;color:var(--sea-soft);}
+.chapter-coord .cc-role{font-size:.82rem;color:var(--silver);margin-top:4px;}
+
+footer{background:var(--black);border-top:1px solid var(--muted);padding:52px 5% calc(32px + env(safe-area-inset-bottom,0px));text-align:center;position:relative;z-index:1;}
+.footer-logo{font-family:'Fraunces',serif;font-weight:500;font-size:1.7rem;color:var(--sea-soft);margin-bottom:6px;}
+.footer-sub{font-size:.72rem;letter-spacing:.12em;color:var(--silver);opacity:.7;margin-bottom:26px;}
+.footer-divider{width:56px;height:1px;background:var(--muted);margin:0 auto 26px;}
+.footer-info{font-size:.78rem;color:var(--silver);opacity:.55;line-height:1.9;}
+.footer-copy{margin-top:24px;font-size:.66rem;letter-spacing:.1em;color:rgba(150,179,170,.35);}
+
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s cubic-bezier(.16,1,.3,1);}
 .reveal.visible{opacity:1;transform:none;}
-.sport-card:nth-child(1){transition-delay:.05s;}.sport-card:nth-child(2){transition-delay:.10s;}.sport-card:nth-child(3){transition-delay:.15s;}.sport-card:nth-child(4){transition-delay:.20s;}.sport-card:nth-child(5){transition-delay:.25s;}.sport-card:nth-child(6){transition-delay:.30s;}.sport-card:nth-child(7){transition-delay:.35s;}.sport-card:nth-child(8){transition-delay:.40s;}.sport-card:nth-child(9){transition-delay:.45s;}.sport-card:nth-child(10){transition-delay:.50s;}
+.alumni-row.reveal:nth-child(1){transition-delay:.05s;}.alumni-row.reveal:nth-child(2){transition-delay:.08s;}.alumni-row.reveal:nth-child(3){transition-delay:.11s;}.alumni-row.reveal:nth-child(4){transition-delay:.14s;}.alumni-row.reveal:nth-child(5){transition-delay:.17s;}.alumni-row.reveal:nth-child(6){transition-delay:.2s;}.alumni-row.reveal:nth-child(7){transition-delay:.23s;}.alumni-row.reveal:nth-child(8){transition-delay:.26s;}.alumni-row.reveal:nth-child(9){transition-delay:.29s;}
+.teacher-row.reveal:nth-child(1){transition-delay:.05s;}.teacher-row.reveal:nth-child(2){transition-delay:.1s;}.teacher-row.reveal:nth-child(3){transition-delay:.15s;}.teacher-row.reveal:nth-child(4){transition-delay:.2s;}
+.faculty-card.reveal:nth-child(1){transition-delay:.03s;}.faculty-card.reveal:nth-child(2){transition-delay:.06s;}.faculty-card.reveal:nth-child(3){transition-delay:.09s;}.faculty-card.reveal:nth-child(4){transition-delay:.12s;}.faculty-card.reveal:nth-child(5){transition-delay:.15s;}.faculty-card.reveal:nth-child(6){transition-delay:.18s;}.faculty-card.reveal:nth-child(7){transition-delay:.21s;}.faculty-card.reveal:nth-child(8){transition-delay:.24s;}.faculty-card.reveal:nth-child(9){transition-delay:.27s;}
 </style>
 </head>
 
 <body>
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursorRing"></div>
-<div id="chem-bg"></div>
 <canvas id="particles"></canvas>
 
 <nav id="navbar">
-  <div class="nav-logo-text">Chemathlon 2026</div>
+  <div class="nav-logo-text">I.I.Ch.E. &middot; JU Students&#39; Chapter<small>Dept. of Chemical Engineering, Est. 1921</small></div>
   <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#legacy">Legacy</a></li>
-    <li><a href="#events">Events</a></li>
-    <li><a href="#schedule">Schedule</a></li>
-    <li><a href="#register" class="nav-cta">Register</a></li>
+    <li><a href="#founding">Founding</a></li>
+    <li><a href="#history">History</a></li>
+    <li><a href="#teachers">Teachers</a></li>
+    <li><a href="#faculty">Faculty</a></li>
+    <li><a href="#alumni">Alumni</a></li>
+    <li><a href="#department">Department</a></li>
+    <li><a href="#chapter">Chapter</a></li>
   </ul>
 </nav>
 
 <section class="hero">
   <div class="hero-bg"></div>
-  <div class="hero-stripes"></div>
-  <div class="gear gear-1"></div><div class="gear gear-2"></div><div class="gear gear-3"></div>
-  <div class="molecule-wrap">
-    <svg class="mol-svg" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="60" cy="30" r="10" stroke="#FFB800" stroke-width="1.5"/>
-      <circle cx="30" cy="80" r="10" stroke="#FF7A00" stroke-width="1.5"/>
-      <circle cx="90" cy="80" r="10" stroke="#C0162C" stroke-width="1.5"/>
-      <circle cx="60" cy="60" r="7" fill="rgba(255,184,0,0.15)" stroke="#FFB800" stroke-width="1"/>
-      <line x1="60" y1="40" x2="60" y2="53" stroke="#FFB800" stroke-width="1"/>
-      <line x1="53" y1="57" x2="37" y2="72" stroke="#FF7A00" stroke-width="1"/>
-      <line x1="67" y1="57" x2="83" y2="72" stroke="#C0162C" stroke-width="1"/>
+  <div class="emblem">
+    <svg viewBox="0 0 120 120" width="118" height="118" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="60" cy="60" r="57" stroke="#33E0AE" stroke-opacity=".35" stroke-width="1"/>
+      <circle cx="60" cy="60" r="47" stroke="#CBA759" stroke-opacity=".5" stroke-width="1" stroke-dasharray="2 4"/>
+      <path d="M50 24H70V50L84 82C86.5 87.8 82.3 94 76 94H44C37.7 94 33.5 87.8 36 82L50 50V24Z" stroke="#33E0AE" stroke-width="2" stroke-linejoin="round"/>
+      <path d="M42 74H78" stroke="#33E0AE" stroke-width="2"/>
+      <path d="M46 24H74" stroke="#33E0AE" stroke-width="2"/>
+      <path d="M56 24V47.5" stroke="#7FE9C6" stroke-width="1.4"/>
+      <path d="M64 24V47.5" stroke="#7FE9C6" stroke-width="1.4"/>
+      <circle cx="60" cy="84" r="4.5" fill="#33E0AE" fill-opacity=".2" stroke="#33E0AE" stroke-width="1"/>
     </svg>
   </div>
-  <div class="hero-badge">IIChE Jadavpur University Students&#39; Chapter</div>
+  <div class="hero-badge">I.I.Ch.E. &middot; Jadavpur University Students&#39; Chapter</div>
   <p class="hero-org">Department of Chemical Engineering &middot; Jadavpur University &middot; Kolkata</p>
-  <div class="logo-stage">
-    <div class="logo-ring"></div><div class="logo-blast"></div>
-    <div class="logo-shimmer"></div><div class="logo-scanlines"></div>
-    <div class="ember"></div><div class="ember"></div><div class="ember"></div>
-    <div class="ember"></div><div class="ember"></div><div class="ember"></div>
-    <img class="hero-logo-img" id="heroLogo" src="" alt="Chemathlon 2026">
+  <h1 class="hero-title">A hundred years of chemists, <em>engineers</em>, and the people they became</h1>
+  <p class="hero-tagline">India&#39;s oldest chemical engineering department has spent over a century turning nervous first-years into scientists, industrialists and quiet leaders of global industry. This is that story so far, told through the teachers who shaped it and the students who carried it forward.</p>
+  <div class="hero-stats">
+    <div class="hero-stat"><span class="hero-stat-num">1921</span><span class="hero-stat-label">Founded</span></div>
+    <div class="hero-stat"><span class="hero-stat-num">1st</span><span class="hero-stat-label">In India</span></div>
+    <div class="hero-stat"><span class="hero-stat-num">1947</span><span class="hero-stat-label">I.I.Ch.E. Est.</span></div>
+    <div class="hero-stat"><span class="hero-stat-num">100+</span><span class="hero-stat-label">Years Strong</span></div>
   </div>
-  <div class="hero-divider"></div>
-  <p class="hero-sub">Annual Sports Extravaganza</p>
-  <p class="hero-tagline">Where Equations Meet Endurance &mdash; The Grand Sports Fiesta of Asia&#39;s Oldest Chemical Engineering Department</p>
   <div class="hero-scroll"><span>Scroll</span><div class="scroll-line"></div></div>
 </section>
 
-<div class="countdown-section" id="register">
-  <p class="section-label" style="color:rgba(255,255,255,.6)">Mark Your Calendar</p>
-  <h2 class="section-title" style="color:#fff">THE <span class="accent">COUNTDOWN</span><br>IS ON</h2>
-  <div class="countdown-grid">
-    <div class="count-unit"><span class="count-num" id="days">--</span><span class="count-label">Days</span></div>
-    <div class="count-sep">:</div>
-    <div class="count-unit"><span class="count-num" id="hours">--</span><span class="count-label">Hours</span></div>
-    <div class="count-sep">:</div>
-    <div class="count-unit"><span class="count-num" id="minutes">--</span><span class="count-label">Minutes</span></div>
-    <div class="count-sep">:</div>
-    <div class="count-unit"><span class="count-num" id="seconds">--</span><span class="count-label">Seconds</span></div>
-  </div>
-  <p style="margin-top:32px;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.4)">26th March 2026 &nbsp;&middot;&nbsp; Jadavpur University Campus</p>
-</div>
-
-<section id="legacy">
-  <div class="legacy">
-    <div class="legacy-text reveal">
-      <p class="section-label">Our Roots</p>
-      <h2 class="section-title">A <span class="accent">CENTURY</span><br>OF EXCELLENCE</h2>
-      <p>The Department of Chemical Engineering at Jadavpur University stands as Asia&#39;s oldest, a titan established in <strong>1921</strong> under the pioneering vision of Prof. H.L. Roy. For over a century, it has forged engineers, scientists, and champions.</p>
-      <p>The Indian Institute of Chemical Engineers (IIChE) was founded on <strong>May 18, 1947</strong> &mdash; days before Indian independence &mdash; with Jadavpur University at its heart. Our students&#39; chapter carries that flame.</p>
-      <blockquote class="legacy-quote">&ldquo;Excellence is not a destination but a continuous journey that never ends.&rdquo;</blockquote>
-      <p>Chemathlon is where the laboratory precision of chemical engineering meets the raw spirit of athletic competition. Every year, it unites minds and bodies in one magnificent festival of sport.</p>
+<section id="founding">
+  <div class="founding-wrap">
+    <div class="reveal">
+      <div class="founding-figure">
+        <div class="fig-name">Acharya Prafulla Chandra Roy</div>
+        <div class="fig-role">Founding Figure &middot; Chemist &middot; Nationalist</div>
+        <p>Long before this department existed, P.C. Roy was already the reason Indian chemistry had a school to call its own. He discovered mercurous nitrite, built the country&#39;s first indigenous research lab in chemistry, and in 1901 founded Bengal Chemical &amp; Pharmaceuticals &mdash; India&#39;s first pharmaceutical company &mdash; almost entirely on his own income.</p>
+        <p>He believed that a nation gets free by building things, not by collecting degrees. So when the Bengal Technical Institute needed someone to lend a fledgling chemical engineering course credibility and conviction in 1921, he was there.</p>
+        <div class="founding-quote">&ldquo;I have no sense of success on any large scale on things achieved &hellip; but have the sense of having worked, and having found happiness in doing so.&rdquo;<cite>&mdash; Life and Experiences of a Bengali Chemist (1932), Roy&#39;s own autobiography. He wrote this after a life spent trying to pull his countrymen out of poverty &mdash; founding Bengal Chemical to create jobs, organizing famine and flood relief in Bengal for decades, and pushing indigenous industry as the way out of colonial economic ruin.</cite></div>
+      </div>
     </div>
-    <div class="reveal" style="transition-delay:.2s">
-      <div class="legacy-stats">
-        <div class="stat-box"><span class="stat-num">1921</span><span class="stat-label">Dept. Founded</span></div>
-        <div class="stat-box"><span class="stat-num">100+</span><span class="stat-label">Years of Legacy</span></div>
-        <div class="stat-box"><span class="stat-num">1st</span><span class="stat-label">In India &amp; Asia</span></div>
-      </div>
-      <div style="background:var(--panel);border:1px solid var(--muted);border-top:none;padding:28px;">
-        <p style="font-size:.82rem;color:var(--silver);line-height:1.8;"><strong style="color:var(--gold)">IIChE JU Students&#39; Chapter</strong> &mdash; a powerhouse of innovation, camaraderie, and competition. Chemathlon unites all years, all streams, all hearts under one electrifying banner.</p>
-      </div>
+    <div class="founding-body reveal" style="transition-delay:.15s">
+      <p class="eyebrow">Where It Began</p>
+      <h2 class="sec-title">Built by <em>visionaries</em>,<br>carried by generations</h2>
+      <p>In 1921, <strong>Prof. Hira Lal Roy</strong> and <strong>Prof. Baneswar Das</strong> stood in front of a class that didn&#39;t exist anywhere else in the country and started teaching chemical engineering. With Acharya P.C. Roy&#39;s backing, that first course at the <strong>Bengal Technical Institute</strong> &mdash; the predecessor of Jadavpur University &mdash; became India&#39;s first, and one of the oldest chemical engineering departments anywhere in the world.</p>
+      <p>The decades that followed weren&#39;t quiet ones. The department grew up alongside the National Council of Education&#39;s push for an education system built by Indians, for Indians, and later lived through the upheaval of the freedom movement and everything that came after it. Through all of it, classes kept happening.</p>
+      <p>When the Government of West Bengal enacted legislation establishing <strong>Jadavpur University on 24th December 1955</strong>, the National Council of Education handed over its institutions &mdash; this department among them &mdash; to the new university, where it has stayed and grown ever since.</p>
     </div>
   </div>
 </section>
 
-<section id="events">
-  <div class="events-header reveal">
-    <p class="section-label">The Arena</p>
-    <h2 class="section-title">BATTLE<br><span class="accent">DISCIPLINES</span></h2>
-    <p style="font-size:.78rem;color:var(--silver);opacity:.55;margin-top:14px;letter-spacing:.12em;">&#x1F446; Click any card to register</p>
-  </div>
-  <div class="sports-grid">
-    <div class="sport-card reveal"><span class="sport-num">01</span><span class="sport-icon">&#x26BD;</span><div class="sport-name">Football</div><div class="sport-format">7+4 A Side</div><div class="sport-detail">10&#8211;5&#8211;10 format. Fast-paced, high-intensity. The field belongs to the brave.</div><span class="sport-card-hint">Click to Register</span></div>
-    <div class="sport-card reveal"><span class="sport-num">02</span><span class="sport-icon">&#x1F3CF;</span><div class="sport-name">Cricket</div><div class="sport-format">5 Overs Each</div><div class="sport-detail">Shorthand cricket. Every ball counts. Every run is a statement.</div><span class="sport-card-hint">Click to Register</span></div>
-    <div class="sport-card reveal"><span class="sport-num">03</span><span class="sport-icon">&#x1F3F8;</span><div class="sport-name">Badminton</div><div class="sport-format">Singles &amp; Doubles</div><div class="sport-detail">Smash, drop, rally. The shuttle doesn&#39;t lie &mdash; champions rise here.</div><span class="sport-card-hint">Click to Register</span></div>
-    <div class="sport-card reveal"><span class="sport-num">04</span><span class="sport-icon">&#x1F3D3;</span><div class="sport-name">Table Tennis</div><div class="sport-format">Knock-out Rounds</div><div class="sport-detail">Lightning reflexes. Razor-sharp focus. The table never forgives.</div><span class="sport-card-hint">Click to Register</span></div>
-    <div class="sport-card reveal"><span class="sport-num">05</span><span class="sport-icon">&#x1F3B2;</span><div class="sport-name">Carrom</div><div class="sport-format">Board Singles</div><div class="sport-detail">Precision and patience. Every flick is a calculated move.</div><span class="sport-card-hint">Click to Register</span></div>
-    <div class="sport-card reveal"><span class="sport-num">06</span><span class="sport-icon">&#x265F;&#xFE0F;</span><div class="sport-name">Chess</div><div class="sport-format">Rapid Format</div><div class="sport-detail">The mind&#39;s greatest sport. Outwit, outmanoeuvre, outlast.</div><span class="sport-card-hint">Click to Register</span></div>
-    <div class="sport-card reveal"><span class="sport-num">07</span><span class="sport-icon">&#x1F3C6;</span><div class="sport-name">Kabaddi</div><div class="sport-format">Team Format</div><div class="sport-detail">Raid, tackle, survive. Raw power meets tactical brilliance on the mat.</div><span class="sport-card-hint">Click to Register</span></div>
-    <div class="sport-card reveal"><span class="sport-num">08</span><span class="sport-icon">&#x1F4AA;</span><div class="sport-name">Tug of War</div><div class="sport-format">Team Pulls</div><div class="sport-detail">Strength, unity, grip. One rope &mdash; two teams &mdash; one winner. No excuses.</div><span class="sport-card-hint">Click to Register</span></div>
-    <div class="sport-card reveal"><span class="sport-num">09</span><span class="sport-icon">&#x1F0CF;</span><div class="sport-name">Cards</div><div class="sport-format">Classic Format</div><div class="sport-detail">Strategy, bluff, and instinct. The deck rewards the sharp mind.</div><span class="sport-card-hint">Click to Register</span></div>
-    <div class="sport-card reveal" style="background:linear-gradient(135deg,var(--panel) 60%,rgba(192,22,44,.08));"><span class="sport-num">+</span><span class="sport-icon"><span class="fire-emoji">&#x1F525;</span></span><div class="sport-name">More Events</div><div class="sport-format">Stay Tuned</div><div class="sport-detail">More surprises await. The Chemathlon roster keeps growing.</div><span class="sport-card-hint">Coming Soon</span></div>
-  </div>
-</section>
-
-<div class="modal-overlay" id="eventModal">
-  <div class="modal-box">
-    <button class="modal-close" id="modalClose">&#x2715;</button>
-    <div class="modal-top">
-      <span class="modal-icon" id="modalIcon"></span>
-      <div class="modal-title" id="modalTitle"></div>
-      <div class="modal-format" id="modalFormat"></div>
-    </div>
-    <div class="modal-body">
-      <p class="modal-desc" id="modalDesc"></p>
-      <div id="modalAction"></div>
-    </div>
-  </div>
-</div>
-
-<section id="schedule">
-  <div class="schedule-header reveal">
-    <p class="section-label">Event Day</p>
-    <h2 class="section-title">DAY <span class="accent">SCHEDULE</span></h2>
+<section id="history">
+  <div class="history-head reveal">
+    <p class="eyebrow">A Timeline</p>
+    <h2 class="sec-title">One hundred years,<br><em>marked in milestones</em></h2>
+    <p class="sec-lead">From a single course at a technical institute to a century-old institution with alumni scattered across the world &mdash; the moments that shaped it, in order.</p>
   </div>
   <div class="timeline">
-    <div class="timeline-item reveal"><div class="timeline-time"><span>08:00</span><small>AM</small></div><div class="timeline-dot"><div class="dot"></div></div><div class="timeline-content"><div class="timeline-event-name">Inauguration <span class="tag">Opening</span></div><div class="timeline-detail">Official flag-off ceremony. Lighting of the torch. Let the games begin.</div></div></div>
-    <div class="timeline-item reveal"><div class="timeline-time"><span>09:00</span><small>AM</small></div><div class="timeline-dot"><div class="dot"></div></div><div class="timeline-content"><div class="timeline-event-name">Football Heats <span class="tag">Field</span></div><div class="timeline-detail">Round robin matches begin. 10&#8211;5&#8211;10 format. Seven-a-side action.</div></div></div>
-    <div class="timeline-item reveal"><div class="timeline-time"><span>09:30</span><small>AM</small></div><div class="timeline-dot"><div class="dot"></div></div><div class="timeline-content"><div class="timeline-event-name">Indoor Events Begin <span class="tag">Multi-Venue</span></div><div class="timeline-detail">Chess, Carrom, Table Tennis and Cards commence across the department complex.</div></div></div>
-    <div class="timeline-item reveal"><div class="timeline-time"><span>10:00</span><small>AM</small></div><div class="timeline-dot"><div class="dot"></div></div><div class="timeline-content"><div class="timeline-event-name">Kabaddi Rounds <span class="tag">Ground</span></div><div class="timeline-detail">Raid and tackle. Teams go head-to-head in one of India&#39;s most primal team sports.</div></div></div>
-    <div class="timeline-item reveal"><div class="timeline-time"><span>11:00</span><small>AM</small></div><div class="timeline-dot"><div class="dot"></div></div><div class="timeline-content"><div class="timeline-event-name">Cricket Matches <span class="tag">Ground</span></div><div class="timeline-detail">5-over battles. Teams square off in shorthand cricket under the open sky.</div></div></div>
-    <div class="timeline-item reveal"><div class="timeline-time"><span>11:30</span><small>AM</small></div><div class="timeline-dot"><div class="dot"></div></div><div class="timeline-content"><div class="timeline-event-name">Tug of War Heats <span class="tag">Ground</span></div><div class="timeline-detail">Dig in. Pull hard. The rope decides who stands and who falls.</div></div></div>
-    <div class="timeline-item reveal"><div class="timeline-time"><span>12:00</span><small>PM</small></div><div class="timeline-dot"><div class="dot"></div></div><div class="timeline-content"><div class="timeline-event-name">Badminton &amp; TT Quarters <span class="tag">Court</span></div><div class="timeline-detail">Quarter-final rounds of Badminton and Table Tennis. Intensity picks up.</div></div></div>
-    <div class="timeline-item reveal"><div class="timeline-time"><span>13:30</span><small>PM</small></div><div class="timeline-dot"><div class="dot"></div></div><div class="timeline-content"><div class="timeline-event-name">Lunch Break <span class="tag">Recharge</span></div><div class="timeline-detail">Fuel up. Rest. The afternoon battles demand everything you&#39;ve got.</div></div></div>
-    <div class="timeline-item reveal"><div class="timeline-time"><span>14:30</span><small>PM</small></div><div class="timeline-dot"><div class="dot"></div></div><div class="timeline-content"><div class="timeline-event-name">Semi-Finals &mdash; All Events <span class="tag">Knockout</span></div><div class="timeline-detail">The field narrows. Only the finest advance. Pressure peaks across every venue.</div></div></div>
-    <div class="timeline-item reveal"><div class="timeline-time"><span>16:30</span><small>PM</small></div><div class="timeline-dot"><div class="dot"></div></div><div class="timeline-content"><div class="timeline-event-name">Football Final <span class="tag">Grand Finale</span></div><div class="timeline-detail">The ultimate showdown. Two teams. Ninety hearts. One trophy. A crowd that roars.</div></div></div>
-    <div class="timeline-item reveal"><div class="timeline-time"><span>17:30</span><small>PM</small></div><div class="timeline-dot"><div class="dot"></div></div><div class="timeline-content"><div class="timeline-event-name">All Finals <span class="tag">Championship</span></div><div class="timeline-detail">Kabaddi, Tug of War, Chess, Carrom, Badminton, TT, Cricket and Cards &mdash; all finals run simultaneously.</div></div></div>
-    <div class="timeline-item reveal"><div class="timeline-time"><span>19:00</span><small>PM</small></div><div class="timeline-dot"><div class="dot" style="background:var(--crimson);box-shadow:0 0 0 3px rgba(192,22,44,.3);"></div></div><div class="timeline-content" style="border-color:rgba(192,22,44,.3);"><div class="timeline-event-name" style="color:var(--gold);">Prize Distribution <span class="tag" style="background:rgba(192,22,44,.15);border-color:rgba(192,22,44,.3);color:var(--crimson);">Ceremony</span></div><div class="timeline-detail">Champions crowned. Trophies raised. The legacy grows. Until next year.</div></div></div>
+    <div class="t-item milestone reveal"><div class="t-year"><span>1921</span></div><div class="t-dot-col"><div class="t-dot"></div></div><div class="t-content"><div class="t-name">The Department is Founded</div><div class="t-detail">A course in chemical engineering begins at the Bengal Technical Institute under Prof. H.L. Roy and Prof. Baneswar Das, backed by Acharya P.C. Roy &mdash; India&#39;s first.</div></div></div>
+    <div class="t-item milestone reveal"><div class="t-year"><span>1947</span></div><div class="t-dot-col"><div class="t-dot"></div></div><div class="t-content"><div class="t-name">I.I.Ch.E. is Founded</div><div class="t-detail">The Indian Institute of Chemical Engineers is founded on 18th May 1947 &mdash; days before independence &mdash; with this department at its heart.</div></div></div>
+    <div class="t-item reveal"><div class="t-year"><span>1951</span></div><div class="t-dot-col"><div class="t-dot"></div></div><div class="t-content"><div class="t-name">First Degrees Conferred</div><div class="t-detail">The first Chemical Engineering degrees are awarded &mdash; the department&#39;s earliest batch of graduates.</div></div></div>
+    <div class="t-item milestone reveal"><div class="t-year"><span>1955</span></div><div class="t-dot-col"><div class="t-dot"></div></div><div class="t-content"><div class="t-name">Jadavpur University is Established</div><div class="t-detail">By an Act of the West Bengal legislature, the NCE&#39;s institutions &mdash; and this department &mdash; become part of the newly formed Jadavpur University.</div></div></div>
+    <div class="t-item reveal"><div class="t-year"><span>1966</span></div><div class="t-dot-col"><div class="t-dot"></div></div><div class="t-content"><div class="t-name">First PhD (Engineering)</div><div class="t-detail">The department confers its first doctoral degree in engineering.</div></div></div>
+    <div class="t-item reveal"><div class="t-year"><span>1970</span></div><div class="t-dot-col"><div class="t-dot"></div></div><div class="t-content"><div class="t-name">A Department in the Doldrums</div><div class="t-detail">The Naxalite movement reaches the campus; classes are disrupted ,students organised . </div></div></div>
+    <div class="t-item reveal"><div class="t-year"><span>1978</span></div><div class="t-dot-col"><div class="t-dot"></div></div><div class="t-content"><div class="t-name">The Department Steadies Itself</div><div class="t-detail">Course reform resumes through the 1970s &mdash; Process Instrumentation and Control, Plant Design, Polymer Engineering &mdash; and the degree returns to a 4-year structure after 10+2 schooling.</div></div></div>
+    <div class="t-item reveal"><div class="t-year"><span>1982</span></div><div class="t-dot-col"><div class="t-dot"></div></div><div class="t-content"><div class="t-name">Diamond Jubilee</div><div class="t-detail">Sixty years of the department are marked and celebrated with alumni across generations.</div></div></div>
+    <div class="t-item reveal"><div class="t-year"><span>1996</span></div><div class="t-dot-col"><div class="t-dot"></div></div><div class="t-content"><div class="t-name">Platinum Jubilee</div><div class="t-detail">Seventy-five years of continuous teaching and research is commemorated.</div></div></div>
+    <div class="t-item milestone reveal"><div class="t-year"><span>2021&ndash;23</span></div><div class="t-dot-col"><div class="t-dot"></div></div><div class="t-content"><div class="t-name">The Centenary</div><div class="t-detail">The department turns 100 in 2021; its Centenary Celebration Programme, &#39;Chemervescence&#39;, is held on 25&ndash;27 February 2023, reuniting alumni from across the globe and raising &#8377;46 lakh for the department.</div></div></div>
   </div>
 </section>
 
-<section class="about-section" id="about">
-  <div class="about-inner">
-    <div class="about-emblem reveal">
-      <div class="emblem-box"><span class="emblem-icon">&#x2697;&#xFE0F;</span><div class="emblem-name">IIChE JU<br>Students&#39; Chapter</div><div class="emblem-sub">Department of Chemical Engineering</div></div>
-      <div class="stat-mini-grid">
-        <div class="stat-mini"><span class="stat-mini-num">1921</span><span class="stat-mini-label">Founded</span></div>
-        <div class="stat-mini"><span class="stat-mini-num">Asia</span><span class="stat-mini-label">1st Dept</span></div>
-        <div class="stat-mini"><span class="stat-mini-num">IIChE</span><span class="stat-mini-label">Est. 1947</span></div>
-        <div class="stat-mini"><span class="stat-mini-num">JU</span><span class="stat-mini-label">Kolkata</span></div>
+<section id="teachers">
+  <div class="teachers-head reveal">
+    <p class="eyebrow">The People Who Taught Them</p>
+    <h2 class="sec-title">Teachers who quietly<br><em>built</em> a department</h2>
+    <p class="sec-lead">Every alumnus on this page started out sitting in front of a teacher whose name rarely makes the news. A few of the people who shaped this department across a hundred years &mdash; the current faculty roster follows below.</p>
+  </div>
+  <div class="teachers-list">
+    <div class="teacher-row reveal">
+      <div><div class="teacher-name">Prof. Hira Lal Roy &amp; Prof. Baneswar Das</div><div class="teacher-era">Founding Faculty, 1921</div></div>
+      <div><div class="teacher-note">Built the department&#39;s very first course of study from nothing, alongside Acharya P.C. Roy. There was no syllabus to inherit &mdash; they wrote the first one.</div></div>
+    </div>
+    <div class="teacher-row reveal">
+      <div><div class="teacher-name">Decades of Faculty</div><div class="teacher-era">1940s&ndash;1970s</div></div>
+      <div><div class="teacher-note">The names behind the changing syllabus rarely got written down, but their choices did: Chemical Engineering Thermodynamics arrived in the 1950s, Applied Kinetics by the late 1950s, and Process Instrumentation &amp; Control, Plant Design and Polymer Engineering through the 1970s. Every one of those decisions was made by a professor standing in front of a blackboard, trying to keep the department current.</div></div>
+    </div>
+    <div class="teacher-row reveal">
+      <div><div class="teacher-name">Departmental Leadership, 2023</div><div class="teacher-era">Centenary Celebration Programme, 25&ndash;27 February 2023</div></div>
+      <div><div class="teacher-note">The department&#39;s leadership at the time worked with alumni bodies to get the century-old departmental building repaired in time for the Centenary event, &#39;Chemervescence&#39;.</div></div>
+    </div>
+    <div class="teacher-row reveal">
+      <div><div class="teacher-name">Prof. Chiranjib Bhattacharjee</div><div class="teacher-era">Alumnus &amp; Vice-Chancellor, Jadavpur University (2026)</div></div>
+      <div><div class="teacher-note">Trained in this very department before rising to lead the university itself, and has spoken often about how much the department owes to alumni who stay connected to it.</div></div>
+    </div>
+  </div>
+  <p class="teachers-note">Titles reflect roles held around the department&#39;s 2023 Centenary Celebration, updated with 2026 information where confirmed.</p>
+</section>
+
+<section id="faculty">
+  <div class="faculty-head reveal">
+    <p class="eyebrow">The Department Today</p>
+    <h2 class="sec-title">The faculty <em>currently</em><br>teaching this department</h2>
+    <p class="sec-lead">As of 2026, this is the teaching and research faculty of the Department of Chemical Engineering &mdash; the people running labs, guiding theses, and standing at the front of the same lecture halls the alumni on this page once sat in.</p>
+  </div>
+  <div class="hod-banner reveal">
+    <div><div class="hb-name">Dr. Chanchal Mondal</div><div class="hb-role">Head of the Department</div></div>
+    <div><div class="hb-name">Prof. Chiranjib Bhattacharjee</div><div class="hb-role">Membrane Technology &amp; Separation Processes &middot; Vice-Chancellor, Jadavpur University</div></div>
+  </div>
+  <div class="faculty-grid">
+    <div class="faculty-card reveal"><div class="f-name">Prof. Avijit Bhowal</div><div class="f-title">Professor</div><div class="f-area">Chemical Engineering</div></div>
+    <div class="faculty-card reveal"><div class="f-name">Dr. Chanchal Mondal</div><div class="f-title">Associate Professor &middot; HoD</div><div class="f-area">Chemical Engineering</div></div>
+    <div class="faculty-card reveal"><div class="f-name">Prof. Chiranjib Bhattacharjee</div><div class="f-title">Professor</div><div class="f-area">Chemical Engineering &middot; Vice-Chancellor, JU</div></div>
+    <div class="faculty-card reveal"><div class="f-name">Dr. Debashis Roy</div><div class="f-title">Professor</div><div class="f-area">Chemical Engineering</div></div>
+    <div class="faculty-card reveal"><div class="f-name">Prof. Kajari Kargupta</div><div class="f-title">Professor</div><div class="f-area">Chemical Engineering</div></div>
+    <div class="faculty-card reveal"><div class="f-name">Dr. Mehabub Rahaman</div><div class="f-title">Associate Professor</div><div class="f-area">Chemical Engineering</div></div>
+    <div class="faculty-card reveal"><div class="f-name">Prof. Papita Das</div><div class="f-title">Professor</div><div class="f-area">Chemical Engineering</div></div>
+    <div class="faculty-card reveal"><div class="f-name">Dr. Raj Kumar Das</div><div class="f-title">Assistant Professor</div><div class="f-area">Chemical Engineering</div></div>
+    <div class="faculty-card reveal"><div class="f-name">Prof. Rajat Chakraborty</div><div class="f-title">Professor</div><div class="f-area">Chemical Engineering</div></div>
+    <div class="faculty-card reveal"><div class="f-name">Prof. Ranjana Chowdhury</div><div class="f-title">Professor</div><div class="f-area">Chemical Engineering</div></div>
+    <div class="faculty-card reveal"><div class="f-name">Dr. Ranjana Das</div><div class="f-title">Associate Professor</div><div class="f-area">Chemical Engineering</div></div>
+    <div class="faculty-card reveal"><div class="f-name">Dr. Ratna Dutta</div><div class="f-title">Associate Professor</div><div class="f-area">Chemical Engineering</div></div>
+    <div class="faculty-card reveal"><div class="f-name">Dr. Saswata Bose</div><div class="f-title">Assistant Professor</div><div class="f-area">Chemical Engineering</div></div>
+    <div class="faculty-card reveal"><div class="f-name">Dr. Shyamal Roy</div><div class="f-title">Assistant Professor</div><div class="f-area">Chemical Engineering</div></div>
+    <div class="faculty-card reveal"><div class="f-name">Dr. Sudeshna Saha</div><div class="f-title">Assistant Professor</div><div class="f-area">Chemical Engineering</div></div>
+    <div class="faculty-card reveal"><div class="f-name">Dr. Sujata Sardar</div><div class="f-title">Assistant Professor</div><div class="f-area">Chemical Engineering</div></div>
+    <div class="faculty-card reveal"><div class="f-name">Prof. Ujjaini Sarkar</div><div class="f-title">Professor</div><div class="f-area">Chemical Engineering</div></div>
+  </div>
+  <p class="faculty-note">Faculty roster and designations sourced directly from Jadavpur University&#39;s official Department of Chemical Engineering page (jadavpuruniversity.in), current as provided; roles may shift with promotions, retirements or new appointments.</p>
+</section>
+
+<section id="alumni">
+  <div class="alumni-head reveal">
+    <p class="eyebrow">Where They Are Now</p>
+    <h2 class="sec-title">Alumni leading <em>industry</em>,<br>research, and each other</h2>
+    <p class="sec-lead">A century of graduates has carried this department&#39;s name into laboratories, refineries and boardrooms worldwide. Every entry below is tied to a moment in the department&#39;s own timeline &mdash; the batch they belonged to, or the year they were recognised.</p>
+  </div>
+  <div class="alumni-list">
+    <div class="alumni-row reveal">
+      <div><div class="alumni-name">Mr. Ravi Prasad</div><div class="alumni-batch">Batch of 1971</div></div>
+      <div><div class="alumni-role">Former CEO, Produits Artistiques M&eacute;taux Pr&eacute;cieux (PAMP), Dubai</div><div class="alumni-note">Retired from running one of the world&#39;s leading gold and silver refiners, then came back and funded a &#8377;31-lakh chemical reactor for the department&#39;s teaching lab &mdash; ahead of the Centenary, 2023.</div></div>
+    </div>
+    <div class="alumni-row reveal">
+      <div><div class="alumni-name">Prof. Arup K. SenGupta</div><div class="alumni-batch">Batch of 1973</div></div>
+      <div><div class="alumni-role">P.C. Rossin Professor Emeritus, Lehigh University, USA</div><div class="alumni-note">Left Jadavpur with a chemical engineering degree and spent a career on one hard problem: arsenic in drinking water. His polymer-based filter now protects millions of people, work recognised with the National Academy of Engineering&#39;s Grainger Prize. As of 2026 he remains an active researcher at Lehigh, recently extending his arsenic-removal sorbent work into direct air capture of CO2.</div></div>
+    </div>
+    <div class="alumni-row reveal">
+      <div><div class="alumni-name">Dr. Rajiv Singh</div><div class="alumni-batch">Centenary Honouree, 2023</div></div>
+      <div><div class="alumni-role">VP, Entegris &amp; Professor Emeritus, University of Florida, USA</div><div class="alumni-note">Carried the department&#39;s materials thread into American industry and academia, more or less at the same time.</div></div>
+    </div>
+    <div class="alumni-row reveal">
+      <div><div class="alumni-name">Mr. Dipankar Das</div><div class="alumni-batch">Centenary Honouree, 2023</div></div>
+      <div><div class="alumni-role">Group VP &ndash; Technology, Marathon Petroleum, USA</div><div class="alumni-note">Set technology direction for one of the largest fuel refiners and marketers in the United States.</div></div>
+    </div>
+    <div class="alumni-row reveal">
+      <div><div class="alumni-name">Dr. Asit Das</div><div class="alumni-batch">Centenary Honouree, 2023</div></div>
+      <div><div class="alumni-role">Head of Refinery R&amp;D and Process Development, Reliance Industries Ltd.</div><div class="alumni-note">Runs refinery-scale research at India&#39;s largest private-sector company &mdash; work that started, like everyone else&#39;s here, on the same lab benches.</div></div>
+    </div>
+    <div class="alumni-row reveal">
+      <div><div class="alumni-name">Ms. Sukla Chandra</div><div class="alumni-batch">Centenary Honouree, 2023</div></div>
+      <div><div class="alumni-role">Senior MD, Licensing &amp; GE Corporate</div><div class="alumni-note">Held a senior licensing leadership role inside GE&#39;s corporate structure.</div></div>
+    </div>
+    <div class="alumni-row reveal">
+      <div><div class="alumni-name">Prof. Amalesh Sirkar</div><div class="alumni-batch">Centenary Honouree, 2023</div></div>
+      <div><div class="alumni-role">President, Global Jadavpur University Alumni Foundation</div><div class="alumni-note">Spends much of his time making sure Jadavpurians &mdash; from every department, not just this one &mdash; never quite lose touch with each other, or the university.</div></div>
+    </div>
+    <div class="alumni-row reveal">
+      <div><div class="alumni-name">Mr. Dwipen Ghosh</div><div class="alumni-batch">Centenary, 2023</div></div>
+      <div><div class="alumni-role">Director, Global Jadavpur University Alumni Foundation</div><div class="alumni-note">Spent over two months in Kolkata coordinating the repair of the department&#39;s own century-old building, so it would be ready in time for its Centenary.</div></div>
+    </div>
+    <div class="alumni-row reveal">
+      <div><div class="alumni-name">Prof. Chiranjib Bhattacharjee</div><div class="alumni-batch">Alumnus</div></div>
+      <div><div class="alumni-role">Vice-Chancellor, Jadavpur University</div><div class="alumni-note">Went from student here to leading the whole university &mdash; and still credits the department&#39;s alumni for keeping it connected to industry.</div></div>
+    </div>
+  </div>
+  <p class="alumni-source">Roles and titles as recognised around the department&#39;s Centenary Celebration Programme (Feb 2023) and Global Jadavpur University Alumni Foundation materials, updated where 2026 information could be independently verified (SenGupta, Bhattacharjee); other entries may have changed since and are marked accordingly.</p>
+</section>
+
+<section id="department">
+  <div class="dept-wrap">
+    <div class="reveal">
+      <div class="dept-stats">
+        <div class="dstat"><span class="dstat-num">1921</span><span class="dstat-label">Founded</span></div>
+        <div class="dstat"><span class="dstat-num">India</span><span class="dstat-label">Oldest Dept.</span></div>
+        <div class="dstat"><span class="dstat-num">I.I.Ch.E.</span><span class="dstat-label">Est. 1947</span></div>
+        <div class="dstat"><span class="dstat-num">JU</span><span class="dstat-label">Kolkata</span></div>
       </div>
     </div>
-    <div class="about-text reveal" style="transition-delay:.15s">
-      <p class="section-label">About the Event</p>
-      <h2 class="section-title">WHAT IS<br><span class="accent">CHEMATHLON?</span></h2>
-      <p>Chemathlon is the annual sports extravaganza of the <strong>IIChE Jadavpur University Students&#39; Chapter</strong>. It is a celebration that transcends the classroom &mdash; a day where chemical engineers trade their lab coats for jerseys and compete with the same fire that drives their research.</p>
-      <p>Hosted on the historic grounds of <strong>Jadavpur University, Kolkata</strong>, the event spans multiple disciplines &mdash; from the football ground to the chess board &mdash; bringing together students from all years of the department in friendly but fierce competition.</p>
-      <p>It is more than a sports day. Chemathlon is a <strong>tradition, a community, a legacy</strong> &mdash; one that grows stronger with every passing year. Whether you&#39;re a seasoned athlete or a first-time player, the arena welcomes all.</p>
-      <p style="color:var(--gold);font-style:italic;font-size:.88rem;margin-top:24px;letter-spacing:.06em;">&ldquo;Where equations meet endurance. Where bonds are forged not just in reactions, but in rivalry and respect.&rdquo;</p>
+    <div class="dept-text reveal" style="transition-delay:.15s">
+      <p class="eyebrow">The Department Today</p>
+      <h2 class="sec-title">Still the department<br>that <em>started it all</em></h2>
+      <p>This is <strong>India&#39;s oldest</strong> chemical engineering department, and one of the oldest anywhere in the world. It currently offers a <strong>4-year Bachelor of Engineering</strong> (intake 82), a <strong>2-year Master of Engineering</strong> (intake 38), and, since 2011, a <strong>2-year Master of Bioprocessing Engineering</strong> (intake 10), alongside PhD research. Active research spans Advanced Process Engineering, Bioprocess and Bioenergy, Membrane-Based Processes, Fuel Cells, Nanomaterials, Catalysis and Reaction Engineering, Environmental Pollution and Waste Valorization, among other areas, backed by UGC-SAP, DST-PURSE, MHRD and TEQIP funding.</p>
+      <p>Its labs today include the Momentum Transfer &amp; Mechanical Operation Laboratory, Process Control Lab, Reaction Engineering Lab, Energy Engineering Lab, Bioprocess Lab, and analytical facilities under UGC-SAP (DRS) and DST-FIST, alongside a dedicated workshop, computer labs, drawing rooms, seminar rooms and a departmental library.</p>
+      <p>The <strong>I.I.Ch.E. Jadavpur University Students&#39; Chapter</strong> is the current generation&#39;s way of holding onto the department&#39;s purpose &mdash; keeping its traditions, alumni network and shared history alive for every batch that comes through, because a department this old can very easily forget its own story if nobody keeps telling it.</p>
+    </div>
+  </div>
+</section>
+
+<section id="chapter">
+  <div class="chapter-wrap reveal">
+    <p class="eyebrow">The Students&#39; Chapter</p>
+    <h2 class="sec-title">Carried forward by <em>whoever&#39;s here now</em></h2>
+    <p>The I.I.Ch.E. JU Students&#39; Chapter does what every generation before it has done &mdash; keeps the department&#39;s community, its history and its ambitions moving. Practically, that means alumni events and departmental traditions. Quietly, it also means making sure a hundred years of story doesn&#39;t just fade out.</p>
+    <div class="chapter-tags">
+      <div class="chapter-tag">Est. 1921 Legacy</div>
+      <div class="chapter-tag">Alumni Network</div>
+      <div class="chapter-tag">Department Archive</div>
+      <div class="chapter-tag">Centenary &amp; Beyond</div>
     </div>
   </div>
 </section>
 
 <footer>
-  <div class="footer-logo">Chemathlon 2026</div>
-  <div class="footer-sub">IIChE JU Students&#39; Chapter</div>
+  <div class="footer-logo">I.I.Ch.E. &middot; JU Students&#39; Chapter</div>
+  <div class="footer-sub">Department of Chemical Engineering, Jadavpur University</div>
   <div class="footer-divider"></div>
-  <div class="footer-info">Department of Chemical Engineering &nbsp;&middot;&nbsp; Jadavpur University &nbsp;&middot;&nbsp; Kolkata, West Bengal<br>Founded 1921 &nbsp;&middot;&nbsp; Asia&#39;s Oldest Chemical Engineering Department &nbsp;&middot;&nbsp; IIChE Est. 1947</div>
-  <div class="footer-copy">&copy; 2026 IIChE JU Students&#39; Chapter &nbsp;&middot;&nbsp; All Rights Reserved &nbsp;&middot;&nbsp; Made with <span class="fire-emoji">&#x1F525;</span></div>
+  <div class="footer-info">Department of Chemical Engineering &nbsp;&middot;&nbsp; Jadavpur University &nbsp;&middot;&nbsp; Kolkata, West Bengal<br>Founded 1921 &nbsp;&middot;&nbsp; India&#39;s Oldest Chemical Engineering Department &nbsp;&middot;&nbsp; I.I.Ch.E. Est. 1947</div>
+  <div class="footer-copy">&copy; I.I.Ch.E. JU Students&#39; Chapter &nbsp;&middot;&nbsp; Legacy &amp; Alumni</div>
 </footer>
 
 <script>
-/* ═══════════════════════════════════════════════════════
-   LOGO — injected via JS to keep base64 out of HTML parser
-═══════════════════════════════════════════════════════ */
-document.getElementById('heroLogo').src = (function(){
-  return 'data:image/png;base64,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';
-})();
-
-/* ═══════════════════════════════════════════════════════
-   MEGA CHEMICAL BACKGROUND ENGINE
-═══════════════════════════════════════════════════════ */
-(function() {
-  const bg  = document.getElementById('chem-bg');
-  const ns  = 'http://www.w3.org/2000/svg';
-  const rnd = (a,b) => a + Math.random()*(b-a);
-  const pick = arr => arr[Math.floor(Math.random()*arr.length)];
-  const GOLD='rgba(255,184,0,', RED='rgba(192,22,44,', AMBER='rgba(255,122,0,', SILVER='rgba(184,180,192,';
-  const COLS=[GOLD,RED,AMBER,SILVER];
-
-  /* 1. PERIODIC TABLE TILES */
-  const ELEMENTS=[
-    {n:1,s:'H',nm:'HYDROGEN',m:'1.008'},{n:2,s:'He',nm:'HELIUM',m:'4.003'},
-    {n:6,s:'C',nm:'CARBON',m:'12.011'},{n:7,s:'N',nm:'NITROGEN',m:'14.007'},
-    {n:8,s:'O',nm:'OXYGEN',m:'15.999'},{n:10,s:'Ne',nm:'NEON',m:'20.18'},
-    {n:11,s:'Na',nm:'SODIUM',m:'22.990'},{n:12,s:'Mg',nm:'MAGNESIUM',m:'24.305'},
-    {n:13,s:'Al',nm:'ALUMINIUM',m:'26.982'},{n:14,s:'Si',nm:'SILICON',m:'28.085'},
-    {n:15,s:'P',nm:'PHOSPHORUS',m:'30.974'},{n:16,s:'S',nm:'SULFUR',m:'32.06'},
-    {n:17,s:'Cl',nm:'CHLORINE',m:'35.45'},{n:19,s:'K',nm:'POTASSIUM',m:'39.098'},
-    {n:20,s:'Ca',nm:'CALCIUM',m:'40.078'},{n:26,s:'Fe',nm:'IRON',m:'55.845'},
-    {n:29,s:'Cu',nm:'COPPER',m:'63.546'},{n:30,s:'Zn',nm:'ZINC',m:'65.38'},
-    {n:35,s:'Br',nm:'BROMINE',m:'79.904'},{n:47,s:'Ag',nm:'SILVER',m:'107.87'},
-    {n:79,s:'Au',nm:'GOLD',m:'196.97'},{n:80,s:'Hg',nm:'MERCURY',m:'200.59'},
-    {n:82,s:'Pb',nm:'LEAD',m:'207.2'},{n:50,s:'Sn',nm:'TIN',m:'118.71'},
-    {n:78,s:'Pt',nm:'PLATINUM',m:'195.08'},{n:22,s:'Ti',nm:'TITANIUM',m:'47.867'},
-  ];
-  ELEMENTS.forEach(el=>{
-    const t=document.createElement('div'); t.className='el-tile';
-    const sz=58+Math.random()*14;
-    t.style.cssText=`width:${sz}px;height:${sz}px;left:${rnd(1,93)}%;top:${rnd(1,93)}%;--rot:${rnd(-20,20)}deg;animation-duration:${rnd(10,18)}s;animation-delay:${rnd(0,14)}s;`;
-    t.innerHTML=`<span class="en">${el.n}</span><span class="es">${el.s}</span><span class="ename">${el.nm}</span><span class="em">${el.m}</span>`;
-    bg.appendChild(t);
-  });
-
-  /* 2. DRIFTING CHEMICAL FORMULAS */
-  const FORMULAS=[
-    'H\u2082O','CO\u2082','NaCl','CH\u2084','H\u2082SO\u2084','C\u2086H\u2081\u2082O\u2086','NH\u2083','HCl','NaOH','C\u2082H\u2085OH',
-    'H\u2082O\u2082','Fe\u2082O\u2083','CaCO\u2083','CH\u2083COOH','Mg(OH)\u2082','Al\u2082O\u2083','K\u2082SO\u2084','HNO\u2083','ZnO',
-    'PbSO\u2084','SiO\u2082','KMnO\u2084','CuSO\u2084','BaSO\u2084','Na\u2082CO\u2083','Ca(OH)\u2082','HF','H\u2083PO\u2084',
-    'Na\u2082SO\u2084','MgCl\u2082','FeCl\u2083','AgNO\u2083','KOH','LiOH','BeO','SnO\u2082','PbO\u2082',
-    'CH\u2082=CH\u2082','C\u2086H\u2085OH','HCOOH','CH\u2083NH\u2082','C\u2083H\u2088','C\u2084H\u2081\u2080','C\u2082H\u2082',
-    'C\u2086H\u2086','CHCl\u2083','CCl\u2084','CF\u2084','NaBr','KCl','CaF\u2082',
-    'PV = nRT','\u0394G = \u0394H \u2212 T\u0394S','pH = \u2212log[H\u207A]','E = h\u03bd','\u0394H\u00B0rxn',
-    'Ksp','Kc','Ka \u00B7 Kb = Kw','\u03bb = h/mv','\u0394S > 0','Cp \u2212 Cv = R',
-    'mol/L','STP','IUPAC','ppm','ppb','M = n/V',
-    'Q = mc\u0394T','\u03b5 = \u2212\u0394G/nF','Ea','kcat','Vm',
-  ];
-  FORMULAS.forEach(f=>{
-    const d=document.createElement('div'); d.className='fdrift';
-    const col=pick(COLS), a=rnd(0.05,0.13).toFixed(2);
-    d.style.cssText=`left:${rnd(1,91)}%;top:${rnd(1,91)}%;font-size:${rnd(0.75,1.7)}rem;color:${col}${a});--dx:${rnd(-180,180)}px;--dy:${rnd(-140,140)}px;--r0:${rnd(-18,18)}deg;--r1:${rnd(-30,30)}deg;animation-duration:${rnd(14,28)}s;animation-delay:${rnd(0,18)}s;`;
-    d.textContent=f; bg.appendChild(d);
-  });
-
-  /* 3. BENZENE RINGS */
-  function benzene(x,y,sz,col,dur,delay){
-    const wrap=document.createElement('div'); wrap.className='benzene';
-    wrap.style.cssText=`left:${x}%;top:${y}%;--dy:${rnd(-180,-80)}px;animation-duration:${dur}s;animation-delay:${delay}s;`;
-    const svg=document.createElementNS(ns,'svg'); svg.setAttribute('width',sz); svg.setAttribute('height',sz); svg.setAttribute('viewBox','-55 -55 110 110');
-    const pts=Array.from({length:6},(_,i)=>{const a=i*60*Math.PI/180;return `${Math.cos(a)*48},${Math.sin(a)*48}`;}).join(' ');
-    const hex=document.createElementNS(ns,'polygon'); hex.setAttribute('points',pts); hex.setAttribute('fill','none'); hex.setAttribute('stroke',col); hex.setAttribute('stroke-width','1.5');
-    for(let i=0;i<3;i++){const a1=(i*2)*60*Math.PI/180,a2=(i*2+1)*60*Math.PI/180; const line=document.createElementNS(ns,'line'); line.setAttribute('x1',Math.cos(a1)*35); line.setAttribute('y1',Math.sin(a1)*35); line.setAttribute('x2',Math.cos(a2)*35); line.setAttribute('y2',Math.sin(a2)*35); line.setAttribute('stroke',col); line.setAttribute('stroke-width','1'); svg.appendChild(line);}
-    const circ=document.createElementNS(ns,'circle'); circ.setAttribute('cx','0'); circ.setAttribute('cy','0'); circ.setAttribute('r','22'); circ.setAttribute('fill','none'); circ.setAttribute('stroke',col); circ.setAttribute('stroke-width','0.8'); circ.setAttribute('stroke-dasharray','5 4');
-    const dot=document.createElementNS(ns,'circle'); dot.setAttribute('cx','0'); dot.setAttribute('cy','0'); dot.setAttribute('r','4'); dot.setAttribute('fill',col);
-    svg.appendChild(hex); svg.appendChild(circ); svg.appendChild(dot); wrap.appendChild(svg); bg.appendChild(wrap);
-  }
-  [[4,8,72,'rgba(255,184,0,.18)',22,0],[22,72,58,'rgba(192,22,44,.15)',28,3],[52,14,68,'rgba(255,122,0,.16)',25,6],[74,78,52,'rgba(255,184,0,.14)',30,9],[87,32,64,'rgba(192,22,44,.13)',20,2],[38,52,48,'rgba(255,122,0,.12)',35,7],[11,86,60,'rgba(255,184,0,.17)',24,4],[63,6,55,'rgba(192,22,44,.14)',27,11],[91,63,50,'rgba(255,184,0,.13)',32,5],[32,22,70,'rgba(255,122,0,.15)',21,8],[48,92,46,'rgba(255,184,0,.12)',29,13],[1,45,54,'rgba(192,22,44,.13)',26,10]].forEach(c=>benzene(...c));
-
-  /* 4. MULTI-RING ORBITAL ATOMS */
-  function orbital(x,y,rings,coreSz){
-    const wrap=document.createElement('div'); wrap.className='orbital-wrap';
-    const boxSz=coreSz+rings.reduce((m,r)=>Math.max(m,r.rx*2),0)+20;
-    wrap.style.cssText=`left:${x}%;top:${y}%;width:${boxSz}px;height:${boxSz}px;margin:-${boxSz/2}px 0 0 -${boxSz/2}px;`;
-    const core=document.createElement('div'); core.className='orbital-core'; core.style.cssText=`width:${coreSz}px;height:${coreSz}px;left:50%;top:50%;box-shadow:0 0 ${coreSz}px rgba(255,184,0,.15);`; wrap.appendChild(core);
-    rings.forEach(r=>{const ring=document.createElement('div'); ring.className='orbital-ring'+(r.rev?' rev':''); ring.style.cssText=`width:${r.rx*2}px;height:${r.ry*2}px;left:${boxSz/2-r.rx}px;top:${boxSz/2-r.ry}px;transform:rotate(${r.tilt||0}deg);animation-duration:${r.dur}s;`; wrap.appendChild(ring);});
-    bg.appendChild(wrap);
-  }
-  orbital(10,20,[{rx:55,ry:22,tilt:0,dur:7},{rx:55,ry:22,tilt:60,dur:9,rev:true},{rx:55,ry:22,tilt:120,dur:11}],14);
-  orbital(82,15,[{rx:48,ry:20,tilt:30,dur:6},{rx:48,ry:20,tilt:90,dur:10,rev:true}],12);
-  orbital(5,60,[{rx:60,ry:24,tilt:15,dur:8},{rx:60,ry:24,tilt:75,dur:12,rev:true},{rx:60,ry:24,tilt:135,dur:9}],16);
-  orbital(90,55,[{rx:44,ry:18,tilt:45,dur:7,rev:true},{rx:44,ry:18,tilt:105,dur:11}],10);
-  orbital(50,5,[{rx:52,ry:21,tilt:0,dur:9},{rx:52,ry:21,tilt:60,dur:7,rev:true}],13);
-  orbital(45,88,[{rx:50,ry:20,tilt:20,dur:10},{rx:50,ry:20,tilt:80,dur:8,rev:true},{rx:50,ry:20,tilt:140,dur:12}],11);
-
-  /* 5. ERLENMEYER FLASKS */
-  function flask(x,y,sz,col,dur,delay,rot){
-    const wrap=document.createElement('div'); wrap.className='flask'; wrap.style.cssText=`left:${x}%;top:${y}%;--rot:${rot}deg;animation-duration:${dur}s;animation-delay:${delay}s;`;
-    const svg=document.createElementNS(ns,'svg'); svg.setAttribute('width',sz); svg.setAttribute('height',sz*1.4); svg.setAttribute('viewBox','0 0 100 140');
-    const path=document.createElementNS(ns,'path'); path.setAttribute('d','M35,5 L35,52 L4,112 Q-2,132 22,132 L78,132 Q102,132 96,112 L65,52 L65,5 Z'); path.setAttribute('fill','none'); path.setAttribute('stroke',col); path.setAttribute('stroke-width','2'); path.setAttribute('stroke-linejoin','round');
-    const neck=document.createElementNS(ns,'line'); neck.setAttribute('x1','35'); neck.setAttribute('y1','5'); neck.setAttribute('x2','65'); neck.setAttribute('y2','5'); neck.setAttribute('stroke',col); neck.setAttribute('stroke-width','2');
-    const liq=document.createElementNS(ns,'ellipse'); liq.setAttribute('cx','50'); liq.setAttribute('cy','108'); liq.setAttribute('rx','30'); liq.setAttribute('ry','12'); liq.setAttribute('fill',col.replace(/([\d.]+)\)$/,'0.12)'));
-    [[38,90,4],[55,85,3],[65,93,5]].forEach(([cx,cy,r])=>{const b=document.createElementNS(ns,'circle'); b.setAttribute('cx',cx); b.setAttribute('cy',cy); b.setAttribute('r',r); b.setAttribute('fill',col.replace(/([\d.]+)\)$/,'0.18)')); b.setAttribute('stroke',col); b.setAttribute('stroke-width','0.8'); svg.appendChild(b);});
-    svg.appendChild(path); svg.appendChild(neck); svg.appendChild(liq); wrap.appendChild(svg); bg.appendChild(wrap);
-  }
-  [[2,28,52,'rgba(255,184,0,.28)',14,0,-14],[87,12,46,'rgba(192,22,44,.24)',18,3,12],[50,72,58,'rgba(255,122,0,.22)',16,6,-7],[16,82,42,'rgba(255,184,0,.20)',20,9,18],[70,42,50,'rgba(192,22,44,.22)',15,2,-20],[94,68,44,'rgba(255,184,0,.24)',17,11,10],[28,5,48,'rgba(255,122,0,.20)',19,5,-5],[60,95,40,'rgba(255,184,0,.18)',22,8,15]].forEach(c=>flask(...c));
-
-  /* 6. TEST TUBES */
-  function testTube(x,y,sz,col,dur,delay,rot){
-    const wrap=document.createElement('div'); wrap.className='ttube'; wrap.style.cssText=`left:${x}%;top:${y}%;--rot:${rot}deg;animation-duration:${dur}s;animation-delay:${delay}s;`;
-    const svg=document.createElementNS(ns,'svg'); svg.setAttribute('width',sz); svg.setAttribute('height',sz*3); svg.setAttribute('viewBox','0 0 40 120');
-    const rect=document.createElementNS(ns,'rect'); rect.setAttribute('x','8'); rect.setAttribute('y','5'); rect.setAttribute('width','24'); rect.setAttribute('height','85'); rect.setAttribute('rx','12'); rect.setAttribute('fill','none'); rect.setAttribute('stroke',col); rect.setAttribute('stroke-width','2');
-    const fill=document.createElementNS(ns,'rect'); fill.setAttribute('x','9'); fill.setAttribute('y','60'); fill.setAttribute('width','22'); fill.setAttribute('height','29'); fill.setAttribute('rx','0 0 11 11'); fill.setAttribute('fill',col.replace(/([\d.]+)\)$/,'0.15)'));
-    const rim=document.createElementNS(ns,'rect'); rim.setAttribute('x','5'); rim.setAttribute('y','3'); rim.setAttribute('width','30'); rim.setAttribute('height','6'); rim.setAttribute('rx','3'); rim.setAttribute('fill',col.replace(/([\d.]+)\)$/,'0.1)')); rim.setAttribute('stroke',col); rim.setAttribute('stroke-width','1.5');
-    svg.appendChild(fill); svg.appendChild(rect); svg.appendChild(rim); wrap.appendChild(svg); bg.appendChild(wrap);
-  }
-  [[8,40,22,'rgba(255,184,0,.30)',12,0,15],[90,40,20,'rgba(192,22,44,.26)',15,4,-12],[25,5,18,'rgba(255,122,0,.28)',11,2,8],[75,5,24,'rgba(255,184,0,.24)',14,7,-8],[40,88,20,'rgba(192,22,44,.22)',16,5,20],[60,88,18,'rgba(255,122,0,.26)',13,9,-18],[2,70,22,'rgba(255,184,0,.22)',10,11,10],[96,70,20,'rgba(192,22,44,.24)',17,3,-10]].forEach(c=>testTube(...c));
-
-  /* 7. BEAKERS */
-  function beaker(x,y,sz,col,dur,delay,rot){
-    const wrap=document.createElement('div'); wrap.className='beaker'; wrap.style.cssText=`left:${x}%;top:${y}%;--rot:${rot}deg;animation-duration:${dur}s;animation-delay:${delay}s;`;
-    const svg=document.createElementNS(ns,'svg'); svg.setAttribute('width',sz); svg.setAttribute('height',sz*1.2); svg.setAttribute('viewBox','0 0 100 120');
-    const body=document.createElementNS(ns,'path'); body.setAttribute('d','M15,10 L15,100 Q15,110 25,110 L75,110 Q85,110 85,100 L85,10 Z'); body.setAttribute('fill','none'); body.setAttribute('stroke',col); body.setAttribute('stroke-width','2');
-    const spout=document.createElementNS(ns,'path'); spout.setAttribute('d','M10,10 L90,10 L95,5'); spout.setAttribute('fill','none'); spout.setAttribute('stroke',col); spout.setAttribute('stroke-width','2');
-    const liq=document.createElementNS(ns,'rect'); liq.setAttribute('x','16'); liq.setAttribute('y','70'); liq.setAttribute('width','68'); liq.setAttribute('height','39'); liq.setAttribute('fill',col.replace(/([\d.]+)\)$/,'0.12)'));
-    [40,55,70].forEach(y=>{const mark=document.createElementNS(ns,'line'); mark.setAttribute('x1','16'); mark.setAttribute('y1',y); mark.setAttribute('x2','26'); mark.setAttribute('y2',y); mark.setAttribute('stroke',col); mark.setAttribute('stroke-width','1'); svg.appendChild(mark);});
-    const bub=document.createElementNS(ns,'circle'); bub.setAttribute('cx','50'); bub.setAttribute('cy','80'); bub.setAttribute('r','6'); bub.setAttribute('fill',col.replace(/([\d.]+)\)$/,'0.2)')); bub.setAttribute('stroke',col); bub.setAttribute('stroke-width','1');
-    svg.appendChild(liq); svg.appendChild(body); svg.appendChild(spout); svg.appendChild(bub); wrap.appendChild(svg); bg.appendChild(wrap);
-  }
-  [[30,15,55,'rgba(192,22,44,.22)',16,0,-8],[65,18,48,'rgba(255,184,0,.20)',20,5,10],[10,55,52,'rgba(255,122,0,.24)',14,3,-12],[84,55,46,'rgba(255,184,0,.18)',18,7,15],[48,78,50,'rgba(192,22,44,.20)',22,10,-5],[20,95,44,'rgba(255,122,0,.22)',15,8,8]].forEach(c=>beaker(...c));
-
-  /* 8. MOLECULAR NETWORKS */
-  function molNet(x,y,scale,col,dur,delay,dx,dy,dr){
-    const wrap=document.createElement('div'); wrap.className='mol-net'; wrap.style.cssText=`left:${x}%;top:${y}%;--dx:${dx}px;--dy:${dy}px;--dr:${dr}deg;animation-duration:${dur}s;animation-delay:${delay}s;`;
-    const n=4+Math.floor(rnd(0,5)); const nodes=Array.from({length:n},()=>({x:rnd(-80,80),y:rnd(-80,80)})); const sz=180*scale;
-    const svg=document.createElementNS(ns,'svg'); svg.setAttribute('width',sz); svg.setAttribute('height',sz); svg.setAttribute('viewBox','-100 -100 200 200');
-    for(let i=0;i<n;i++) for(let j=i+1;j<n;j++){if(Math.random()<.5){const l=document.createElementNS(ns,'line'); l.setAttribute('x1',nodes[i].x); l.setAttribute('y1',nodes[i].y); l.setAttribute('x2',nodes[j].x); l.setAttribute('y2',nodes[j].y); l.setAttribute('stroke',col); l.setAttribute('stroke-width','1.2'); svg.appendChild(l);}}
-    nodes.forEach((nd,i)=>{const c=document.createElementNS(ns,'circle'); c.setAttribute('cx',nd.x); c.setAttribute('cy',nd.y); c.setAttribute('r',i===0?7:3+rnd(0,4)); c.setAttribute('fill',col.replace(/([\d.]+)\)$/,'0.15)')); c.setAttribute('stroke',col); c.setAttribute('stroke-width','1.5'); svg.appendChild(c);});
-    wrap.appendChild(svg); bg.appendChild(wrap);
-  }
-  [[6,18,.8,'rgba(255,184,0,.16)',30,0,80,-100,45],[68,8,.7,'rgba(192,22,44,.14)',35,4,-70,80,-30],[18,73,.9,'rgba(255,122,0,.15)',28,8,100,60,60],[79,58,.75,'rgba(255,184,0,.13)',32,2,-90,-70,-45],[43,38,.65,'rgba(192,22,44,.12)',40,6,70,-90,90],[91,8,.8,'rgba(255,184,0,.15)',25,10,-60,100,-60],[2,53,.7,'rgba(255,122,0,.14)',38,3,90,70,30],[58,83,.85,'rgba(192,22,44,.13)',33,7,-80,-80,-90],[30,5,.7,'rgba(255,184,0,.12)',36,11,60,-80,50],[75,90,.8,'rgba(255,122,0,.13)',29,5,-70,90,-40]].forEach(c=>molNet(...c));
-
-  /* 9. DNA HELIX STRANDS */
-  for(let i=0;i<12;i++){
-    const s1=document.createElement('div'); s1.className='dna'; const h=100+rnd(0,200),x=rnd(1,95);
-    s1.style.cssText=`left:${x}%;height:${h}px;width:2px;border-radius:1px;background:linear-gradient(to bottom,transparent,rgba(192,22,44,.35),transparent);animation-duration:${rnd(10,18)}s;animation-delay:${rnd(0,14)}s;`; bg.appendChild(s1);
-    const s2=document.createElement('div'); s2.className='dna';
-    s2.style.cssText=`left:${Math.min(x+1.2,96)}%;height:${h}px;width:2px;border-radius:1px;background:linear-gradient(to bottom,transparent,rgba(255,184,0,.28),transparent);animation-duration:${rnd(10,18)}s;animation-delay:${rnd(0,14)+.4}s;`; bg.appendChild(s2);
-  }
-
-  /* 10. REACTION EQUATIONS */
-  const RXNS=[
-    'CH\u2084 + 2O\u2082 \u2192 CO\u2082 + 2H\u2082O','N\u2082 + 3H\u2082 \u21CC 2NH\u2083','2H\u2082 + O\u2082 \u2192 2H\u2082O','CaCO\u2083 \u2192 CaO + CO\u2082',
-    'H\u2082SO\u2084 + 2NaOH \u2192 Na\u2082SO\u2084 + 2H\u2082O','Fe\u2082O\u2083 + 3CO \u2192 2Fe + 3CO\u2082',
-    'C\u2086H\u2081\u2082O\u2086 \u2192 2C\u2082H\u2085OH + 2CO\u2082','2HCl + Mg \u2192 MgCl\u2082 + H\u2082\u2191',
-    'AgNO\u2083 + NaCl \u2192 AgCl\u2193 + NaNO\u2083','Zn + 2HCl \u2192 ZnCl\u2082 + H\u2082\u2191',
-    '4Fe + 3O\u2082 \u2192 2Fe\u2082O\u2083','C + O\u2082 \u2192 CO\u2082','SO\u2083 + H\u2082O \u2192 H\u2082SO\u2084','CaO + H\u2082O \u2192 Ca(OH)\u2082',
-    'Na + H\u2082O \u2192 NaOH + \u00bdH\u2082\u2191','CH\u2083OH + O\u2082 \u2192 CO\u2082 + 2H\u2082O',
-    '2Al + 3Cl\u2082 \u2192 2AlCl\u2083','Pb(NO\u2083)\u2082 + 2KI \u2192 PbI\u2082\u2193 + 2KNO\u2083',
-    'Cu + 4HNO\u2083 \u2192 Cu(NO\u2083)\u2082 + 2NO\u2082 + 2H\u2082O',
-    '2KMnO\u2084 + 5H\u2082O\u2082 + 3H\u2082SO\u2084 \u2192 2MnSO\u2084 + 5O\u2082 + 8H\u2082O',
-  ];
-  RXNS.forEach(eq=>{
-    const d=document.createElement('div'); d.className='rxn-eq'; const col=pick(COLS),a=rnd(0.05,0.1).toFixed(2);
-    d.style.cssText=`left:${rnd(1,65)}%;top:${rnd(1,91)}%;font-size:${rnd(0.68,0.88)}rem;color:${col}${a});--rot:${rnd(-10,10)}deg;animation-duration:${rnd(14,22)}s;animation-delay:${rnd(0,16)}s;`;
-    d.textContent=eq; bg.appendChild(d);
-  });
-
-  /* 11. GREEK / PHYSICS SYMBOLS */
-  const GREEK=['\u03b1','\u03b2','\u03b3','\u03b4','\u03b5','\u03b6','\u03b7','\u03b8','\u03bb','\u03bc','\u03bd','\u03be','\u03c0','\u03c1','\u03c3','\u03c4','\u03c6','\u03c7','\u03c8','\u03c9','\u0394','\u0393','\u03a3','\u03a9','\u039b','\u03a6','\u03a8','\u2202','\u222b','\u221e','\u2211','\u221a','\u2207','\u2208','\u2209','\u2248','\u2261','\u2295','e\u207b','p\u207a','n\u2070','\u0127','k\u0243','N\u2090','R','F','\u03bc\u2080','\u03b5\u2080'];
-  GREEK.forEach(sym=>{
-    const d=document.createElement('div'); d.className='greek-sym'; const col=pick(COLS),a=rnd(0.04,0.09).toFixed(2);
-    d.style.cssText=`left:${rnd(1,93)}%;top:${rnd(1,93)}%;font-size:${rnd(1.8,5)}rem;color:${col}${a});--dx:${rnd(-60,60)}px;--dy:${rnd(-60,60)}px;--r0:${rnd(-20,20)}deg;--r1:${rnd(-35,35)}deg;animation-duration:${rnd(12,22)}s;animation-delay:${rnd(0,18)}s;`;
-    d.textContent=sym; bg.appendChild(d);
-  });
-
-  /* 12. THERMODYNAMICS BANNERS */
-  const THERMO=['\u0394G = \u0394H \u2212 T\u0394S','dU = \u03b4Q \u2212 \u03b4W','S = k\u0243 ln \u03a9','PV = nRT','\u0394H < 0  \u2192  Exothermic','Cp \u2212 Cv = R','\u03bc = (\u2202G/\u2202n)T,P','Q = mc\u0394T','\u03b7 = 1 \u2212 Tc/Th','\u0394S_universe \u2265 0','G = H \u2212 TS','Kp = Kc(RT)^\u0394n'];
-  THERMO.forEach(t=>{
-    const d=document.createElement('div'); d.className='thermo-banner'; const col=pick([GOLD,AMBER,RED]),a=rnd(0.06,0.11).toFixed(2);
-    d.style.cssText=`left:${rnd(2,60)}%;top:${rnd(2,92)}%;font-size:${rnd(0.75,1.0)}rem;color:${col}${a});--rot:${rnd(-8,8)}deg;animation-duration:${rnd(16,26)}s;animation-delay:${rnd(0,18)}s;`;
-    d.textContent=t; bg.appendChild(d);
-  });
-
-  /* 13. FLOATING BUBBLES */
-  for(let i=0;i<18;i++){const b=document.createElement('div'); b.className='bubble'; const sz=rnd(20,70); b.style.cssText=`left:${rnd(1,95)}%;top:${rnd(1,95)}%;width:${sz}px;height:${sz}px;--dy:${rnd(-40,40)}px;animation-duration:${rnd(8,16)}s;animation-delay:${rnd(0,14)}s;`; bg.appendChild(b);}
-
-  /* 14. SCROLLING CHEM TAPE */
-  const tapeRow1='H\u2082O \u00b7 CO\u2082 \u00b7 NaCl \u00b7 C\u2086H\u2086 \u00b7 HCl \u00b7 NH\u2083 \u00b7 CH\u2084 \u00b7 H\u2082SO\u2084 \u00b7 NaOH \u00b7 C\u2082H\u2085OH \u00b7 Fe\u2082O\u2083 \u00b7 CaCO\u2083 \u00b7 KMnO\u2084 \u00b7 AgNO\u2083 \u00b7 CuSO\u2084 \u00b7 ';
-  const tapeRow2='\u0394G=\u0394H\u2212T\u0394S \u00b7 PV=nRT \u00b7 pH=\u2212log[H\u207A] \u00b7 Ksp \u00b7 Kc \u00b7 \u0394H\u00b0rxn \u00b7 \u0394S>0 \u00b7 E=h\u03bd \u00b7 mol/L \u00b7 STP \u00b7 ';
-  [[3,tapeRow1,'rgba(255,184,0,0.04)',80],[18,tapeRow2,'rgba(192,22,44,0.04)',55],[35,tapeRow1,'rgba(255,122,0,0.035)',70],[55,tapeRow2,'rgba(255,184,0,0.03)',65],[72,tapeRow1,'rgba(192,22,44,0.035)',75],[88,tapeRow2,'rgba(255,122,0,0.03)',60]].forEach(([top,content,col,dur])=>{
-    const wrap=document.createElement('div'); wrap.style.cssText=`position:absolute;top:${top}%;left:0;width:200%;overflow:hidden;pointer-events:none;`;
-    const tape=document.createElement('div'); tape.className='chem-tape'; tape.style.cssText=`font-size:.65rem;letter-spacing:.12em;color:${col};animation-duration:${dur}s;`; tape.textContent=content.repeat(8); wrap.appendChild(tape); bg.appendChild(wrap);
-  });
-
-  /* 15. VALENCE GLOW DOTS */
-  for(let i=0;i<40;i++){const d=document.createElement('div'); d.className='vdot'; const col=pick(COLS),sz=rnd(2,6),a=rnd(0.06,0.14).toFixed(2); d.style.cssText=`left:${rnd(0,98)}%;top:${rnd(0,98)}%;width:${sz}px;height:${sz}px;background:${col}${a});box-shadow:0 0 ${sz*3}px ${col}0.2);animation-duration:${rnd(5,14)}s;animation-delay:${rnd(0,14)}s;`; bg.appendChild(d);}
-
-})();
-
-/* CURSOR */
-const cursor=document.getElementById('cursor');
-const ring=document.getElementById('cursorRing');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px';});
-(function ar(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(ar);})();
-
 /* NAV */
 const nav=document.getElementById('navbar');
 window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>50));
-
-/* COUNTDOWN */
-const target=new Date('2026-03-26T08:00:00');
-function tick(){
-  const d=target-new Date();
-  if(d<=0){['days','hours','minutes','seconds'].forEach(id=>document.getElementById(id).textContent='00');return;}
-  document.getElementById('days').textContent=String(Math.floor(d/86400000)).padStart(2,'0');
-  document.getElementById('hours').textContent=String(Math.floor(d%86400000/3600000)).padStart(2,'0');
-  document.getElementById('minutes').textContent=String(Math.floor(d%3600000/60000)).padStart(2,'0');
-  document.getElementById('seconds').textContent=String(Math.floor(d%60000/1000)).padStart(2,'0');
-}
-tick(); setInterval(tick,1000);
 
 /* SCROLL REVEAL */
 const obs=new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting&&e.target.classList.add('visible')),{threshold:.12});
 document.querySelectorAll('.reveal').forEach(r=>obs.observe(r));
 
-/* PARTICLE NETWORK */
+/* BACKGROUND — simple flowing dots, connected, sea-green & brass */
 const canvas=document.getElementById('particles');
 const ctx=canvas.getContext('2d');
 let CW,CH,pts=[];
 function resize(){CW=canvas.width=window.innerWidth;CH=canvas.height=window.innerHeight;}
 resize(); window.addEventListener('resize',resize);
-const pcols=['rgba(255,184,0,','rgba(255,122,0,','rgba(192,22,44,','rgba(240,237,232,'];
-for(let i=0;i<90;i++)pts.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*1.8+.4,vx:(Math.random()-.5)*.35,vy:(Math.random()-.5)*.35,c:pcols[~~(Math.random()*pcols.length)],a:Math.random()*.4+.1});
+const pcols=['rgba(51,224,174,','rgba(203,167,89,','rgba(127,233,198,','rgba(234,246,241,'];
+for(let i=0;i<110;i++)pts.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*1.8+.4,vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.3,c:pcols[~~(Math.random()*pcols.length)],a:Math.random()*.4+.08});
 (function draw(){
   ctx.clearRect(0,0,CW,CH);
   pts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0)p.x=CW;if(p.x>CW)p.x=0;if(p.y<0)p.y=CH;if(p.y>CH)p.y=0;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=p.c+p.a+')';ctx.fill();});
-  pts.forEach((a,i)=>{for(let j=i+1;j<pts.length;j++){const b=pts[j],dx=a.x-b.x,dy=a.y-b.y,d=Math.sqrt(dx*dx+dy*dy);if(d<130){ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.strokeStyle='rgba(255,184,0,'+(0.06*(1-d/130))+')';ctx.lineWidth=.5;ctx.stroke();}}});
+  pts.forEach((a,i)=>{for(let j=i+1;j<pts.length;j++){const b=pts[j],dx=a.x-b.x,dy=a.y-b.y,d=Math.sqrt(dx*dx+dy*dy);if(d<130){ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.strokeStyle='rgba(51,224,174,'+(0.07*(1-d/130))+')';ctx.lineWidth=.5;ctx.stroke();}}});
   requestAnimationFrame(draw);
 })();
-
-/* EVENT REGISTRATION MODALS */
-const EVENT_DATA=[
-  {icon:'\u26bd',name:'Football',format:'7+4 A Side',desc:'10\u20135\u201310 format. Fast-paced, high-intensity field battles. Form your team, register, and claim the pitch.',form:'https://docs.google.com/forms/d/e/1FAIpQLSebYckGZPCXhHlQfHhKLc2Hs_wcx9gbfd1VH5kuLVhfRJujBg/viewform'},
-  {icon:'\ud83c\udfcf',name:'Cricket',format:'5 Overs Each',desc:'Shorthand cricket at its finest. Every ball counts, every run is a statement. Register your team and step onto the crease.',form:'https://docs.google.com/forms/d/e/1FAIpQLSdeTbunruGs7C2SsnFF-OohGrEw70919hxAmL88N86gVGUE7A/viewform'},
-  {icon:'\ud83c\udff8',name:'Badminton',format:'Singles & Doubles',desc:'Smash, drop, rally \u2014 the shuttle never lies. Champions rise here. Register for singles or doubles and take the court.',form:'https://docs.google.com/forms/d/e/1FAIpQLSdiDd7W_vVavfsmeuXgOv9LoI-D8tocC55rABwsANHl1VJM6w/viewform'},
-  {icon:'\ud83c\udfd3',name:'Table Tennis',format:'Knock-out Rounds',desc:'Lightning reflexes. Razor-sharp focus. The table never forgives. Register and prove your precision.',form:'https://docs.google.com/forms/d/e/1FAIpQLSdPfC5NuDoh9YMJZBljqb7hfaTqzTw1Sl6wDkOULZ09tY4xZA/viewform'},
-  {icon:'\ud83c\udfb2',name:'Carrom',format:'Board Singles',desc:'Precision and patience. Every flick is a calculated move. Register and show your mastery of the board.',form:'https://docs.google.com/forms/d/e/1FAIpQLScOq2BC1EhoZob7i8yV5IRmOQWoS3g188-VAgjCD9QIVEJZrQ/viewform'},
-  {icon:'\u265f\ufe0f',name:'Chess',format:'Rapid Format',desc:"The mind's greatest sport. Outwit, outmanoeuvre, outlast. Register and bring your A-game to the board.",form:'https://docs.google.com/forms/d/e/1FAIpQLSdNSgxrCIk-GyPzzMl_ywp2oOC1T_PpVWjLqCNhH8LBIMjjlg/viewform'},
-  {icon:'\ud83c\udfc6',name:'Kabaddi',format:'Team Format',desc:"Raid, tackle, survive. Raw power meets tactical brilliance. Register your team for one of India's most primal team sports.",form:'https://docs.google.com/forms/d/e/1FAIpQLSexMT30RxMQizTaWZzHFa478XLlQkBJG6AtKMkBHjXYHN_5OA/viewform'},
-  {icon:'\ud83d\udcaa',name:'Tug of War',format:'Team Pulls',desc:'Strength, unity, grip. One rope \u2014 two teams \u2014 one winner. No excuses. Register your team and pull for glory.',form:'https://docs.google.com/forms/d/e/1FAIpQLSdRo8ZYOw65uvBMi7Pse_QwKr3Ybx-62fFHQU2mAZJaR5CGFg/viewform'},
-  {icon:'\ud83c\udccf',name:'Cards',format:'Classic Format',desc:'Strategy, bluff, and instinct. The deck rewards the sharp mind. Register and play your hand.',form:'https://docs.google.com/forms/d/e/1FAIpQLScRBnExVyJuXOxJYhQ5xVBAfAbuh-L0_kLjptevskONrwQhvQ/viewform'},
-  {icon:'\ud83d\udd25',name:'More Events',format:'Stay Tuned',desc:'More surprises await. The Chemathlon roster keeps growing. Watch this space for upcoming event announcements!',form:null}
-];
-
-const modal=document.getElementById('eventModal');
-const mIcon=document.getElementById('modalIcon');
-const mTitle=document.getElementById('modalTitle');
-const mFormat=document.getElementById('modalFormat');
-const mDesc=document.getElementById('modalDesc');
-const mAction=document.getElementById('modalAction');
-const mClose=document.getElementById('modalClose');
-
-function openModal(data){
-  mIcon.textContent=data.icon; mTitle.textContent=data.name; mFormat.textContent=data.format; mDesc.textContent=data.desc;
-  mAction.innerHTML=data.form?`<a class="modal-register-btn" href="${data.form}" target="_blank" rel="noopener noreferrer">REGISTER NOW \u2192</a>`:`<div class="modal-no-form">Registrations Opening Soon</div>`;
-  modal.classList.add('open'); document.body.style.overflow='hidden';
-}
-function closeModal(){modal.classList.remove('open');document.body.style.overflow='';}
-
-document.querySelectorAll('.sport-card').forEach((card,i)=>{card.addEventListener('click',()=>{if(EVENT_DATA[i])openModal(EVENT_DATA[i]);});});
-mClose.addEventListener('click',closeModal);
-modal.addEventListener('click',e=>{if(e.target===modal)closeModal();});
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
 </script>
 </body>
 </html>
