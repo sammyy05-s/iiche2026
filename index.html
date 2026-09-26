@@ -631,7 +631,7 @@ let CW,CH,pts=[];
 function resize(){CW=canvas.width=window.innerWidth;CH=canvas.height=window.innerHeight;}
 resize(); window.addEventListener('resize',resize);
 const pcols=['rgba(51,224,174,','rgba(203,167,89,','rgba(127,233,198,','rgba(234,246,241,'];
-for(let i=0;i<110;i++)pts.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*1.8+.4,vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.3,c:pcols[~~(Math.random()*pcols.length)],a:Math.random()*.4+.08});
+for(let i=0;i<110;i++)pts.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*1.8+.4,vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.3,c:pcols[~~(Math.random()*pcols.length)],a:Math.random()*.6+.08});
 (function draw(){
   ctx.clearRect(0,0,CW,CH);
   pts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0)p.x=CW;if(p.x>CW)p.x=0;if(p.y<0)p.y=CH;if(p.y>CH)p.y=0;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=p.c+p.a+')';ctx.fill();});
