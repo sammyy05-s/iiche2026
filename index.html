@@ -593,15 +593,9 @@ footer{background:var(--black);border-top:1px solid var(--muted);padding:52px 5%
   audio.addEventListener('pause',()=>{ setUI(false); stopTick(); });
 
   function tryAutoplay(){
-    const p=audio.play();
-    if(p && p.catch) p.catch(()=>{
-      setUI(false);
-      const resume=()=>{ audio.play().catch(()=>{}); };
-      document.addEventListener('click',resume,{once:true});
-      document.addEventListener('touchstart',resume,{once:true});
-      document.addEventListener('keydown',resume,{once:true});
-    });
-  }
+  const p=audio.play();
+  if(p && p.catch) p.catch(()=>{ setUI(false); });
+}
   setUI(false);
   drawRing(0);
   tryAutoplay();
